@@ -6,12 +6,21 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 22:09:21 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/09 20:32:45 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/09 20:47:32 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <stdio.h>
+
+static void		exit_if_arg_empty(char *arg)
+{
+	if (arg[0] == '\0')
+	{
+		ft_putendl_fd("ft_ls: fts_open: No such file or directory", 2);
+		exit(1);
+	}
+}
 
 static void		print_options(t_options *options)
 {
@@ -67,5 +76,12 @@ int				main(int ac, char **av)
 		handle_options(av[i] + 1, &options);
 		i++;
 	}
-	return (1);
+	if (i < ac && ft_strequ(av[i], "--"))
+		i++;
+	while (i < ac)
+	{
+		exit_if_arg_empty(av[i]);
+		i++;
+	}
+	return (0);
 }

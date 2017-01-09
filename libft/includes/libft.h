@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 16:33:19 by tmoska            #+#    #+#             */
-/*   Updated: 2016/12/07 22:42:58 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/09 21:01:01 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,7 @@ void				ft_lstforeach(t_list *begin_list, void (*f)(void *));
 void				ft_lstmerge(t_list **begin_list1, t_list *begin_list2);
 void				ft_lstrmif(t_list **begin_list,
 					void *data_ref, int (*cmp)());
+void				ft_lst_push_front(t_list **begin_list, void *data);
+t_list				*ft_lst_create_elem(void *data);
 char				*ft_itoa(int n);
 #endif

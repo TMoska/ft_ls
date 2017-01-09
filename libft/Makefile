@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmoska <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/22 15:11:22 by tmoska            #+#    #+#              #
-#    Updated: 2016/11/22 15:33:14 by tmoska           ###   ########.fr        #
+#    Updated: 2017/01/09 20:59:29 by tmoska           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ SOURCES = 	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigi
 			ft_striter.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c \
 			ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c \
 			ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c \
-			ft_lstrev.c ft_lstsort.c ft_lstsize.c ft_lstforeach.c ft_lstmerge.c ft_lstrmif.c
+			ft_lstrev.c ft_lstsort.c ft_lstsize.c ft_lstforeach.c ft_lstmerge.c ft_lstrmif.c ft_lst_push_front.c \
+			ft_lst_create_elem.c
+
 OBJECTS = $(SOURCES:.c=.o)
 
 all: $(NAME)
