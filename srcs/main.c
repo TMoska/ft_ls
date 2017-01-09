@@ -6,14 +6,14 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 22:09:21 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/09 18:04:26 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/09 20:32:45 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <stdio.h>
 
-static void print_options(t_options *options)
+static void		print_options(t_options *options)
 {
 	printf("recursive: %d\n", options->recursive);
 	printf("all: %d\n", options->all);
@@ -22,7 +22,7 @@ static void print_options(t_options *options)
 	printf("sort_time_modified: %d\n", options->sort_time_modified);
 }
 
-static void assign_option(char c, t_options *options)
+static void		assign_option(char c, t_options *options)
 {
 	if (c == 'R')
 		options->recursive = 1;
@@ -44,7 +44,7 @@ static void assign_option(char c, t_options *options)
 	}
 }
 
-static void	handle_options(char *s, t_options *options)
+static void		handle_options(char *s, t_options *options)
 {
 	while (*s)
 	{
@@ -54,7 +54,7 @@ static void	handle_options(char *s, t_options *options)
 	print_options(options);
 }
 
-int		main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	int			i;
 	t_options	options;
