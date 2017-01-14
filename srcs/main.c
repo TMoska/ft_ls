@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 22:09:21 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/09 20:47:32 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/10 22:54:58 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,18 @@ static void		exit_if_arg_empty(char *arg)
 	}
 }
 
-static void		print_options(t_options *options)
-{
-	printf("recursive: %d\n", options->recursive);
-	printf("all: %d\n", options->all);
-	printf("long_format: %d\n", options->long_format);
-	printf("sort_reverse: %d\n", options->sort_reverse);
-	printf("sort_time_modified: %d\n", options->sort_time_modified);
-}
-
-static void		assign_option(char c, t_options *options)
+static void		assign_option(char c, t_listing *listing)
 {
 	if (c == 'R')
-		options->recursive = 1;
+		listing->recursive = 1;
 	else if (c == 'a')
-		options->all = 1;
+		listing->all = 1;
 	else if (c == 'l')
-		options->long_format = 1;
+		listing->long_format = 1;
 	else if (c == 'r')
-		options->sort_reverse = 1;
+		listing->sort_reverse = 1;
 	else if (c == 't')
-		options->sort_time_modified = 1;
+		listing->sort_time_modified = 1;
 	else
 	{
 		ft_putstr_fd("ft_ls: illegal option -- ", 2);
@@ -53,27 +44,35 @@ static void		assign_option(char c, t_options *options)
 	}
 }
 
-static void		handle_options(char *s, t_options *options)
-{
+static void		handle_options(char *s, t_listing *listing)
+{	
 	while (*s)
 	{
-		assign_option(*s, options);
+		assign_option(*s, listing);
 		s++;
 	}
-	print_options(options);
+}
+
+static void		prep_arguments(t_list **arguments)
+{
+		if (!(*arguments))
+			ft_lst_push_front(arguments, ft_strdup("./"));
+	  ft_lstsort(arguments, &ft_strcmp);
 }
 
 int				main(int ac, char **av)
 {
 	int			i;
-	t_options	options;
+	t_list		*arguments;
+	t_listing	listing;
 
-	ft_bzero(&options, sizeof(t_options));
+	ft_bzero(&listing, sizeof(t_listing));
+	arguments = NULL;
 	i = 1;
 	while (i < ac && av[i][0] != '\0' && av[i][0] == '-' && av[i][1] != '\0'
 		&& !ft_strequ(av[i], "--"))
 	{
-		handle_options(av[i] + 1, &options);
+		handle_options(av[i] + 1, &listing);
 		i++;
 	}
 	if (i < ac && ft_strequ(av[i], "--"))
@@ -81,7 +80,11 @@ int				main(int ac, char **av)
 	while (i < ac)
 	{
 		exit_if_arg_empty(av[i]);
+		ft_lst_push_front(&arguments, av[i]);
+		listing.arg_num++;
 		i++;
 	}
+	prep_arguments(&arguments);
+	handle_ls(&arguments, &listing);
 	return (0);
 }
