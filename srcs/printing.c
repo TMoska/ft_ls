@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 10:09:03 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/14 22:27:22 by tmoska           ###   ########.fr       */
+/*   Created: 2017/01/14 20:16:22 by tmoska            #+#    #+#             */
+/*   Updated: 2017/01/14 23:08:18 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_ls.h"
+#include <stdio.h>
 
-void	ft_putstr(char const *s)
+void	print_folder(char *folder_name, t_listing *listing)
 {
-	ft_putstr_fd(s, 1);
+	if (listing->printed_folder_already)
+		ft_putstr("\n");
+	else
+		listing->printed_folder_already = 1;
+	ft_putstr(folder_name);
+	ft_putstr(":\n");
 }

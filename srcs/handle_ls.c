@@ -6,15 +6,35 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:59:22 by moska             #+#    #+#             */
-/*   Updated: 2017/01/14 16:42:23 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/14 23:10:44 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <stdio.h>
 
+static int			is_a_valid_file(char *folder_name)
+{
+	DIR				*dir;
+	struct dirent	*read;
+	char			*path;
+	char			*short_name;
+	int				ret;
+
+	ret = 0;
+	path = ft_get_path(folder_name);
+	short_name = ft_basename(folder_name);
+	dir = opendir(path);
+	while ((read = readdir(dir)))
+		if (ft_strequ(short_name, read->d_name))
+			ret = 1;
+	free(path);
+	closedir(dir);
+	return (ret);
+}
+
 static void			read_directory(char *folder_name, t_list **directories,
-		t_list **failures)
+		t_list **file_list)
 {
 	DIR				*opened;
 	t_list			*files;
@@ -31,11 +51,27 @@ static void			read_directory(char *folder_name, t_list **directories,
 	else
 	{
 		ft_lst_push_back(directories, NULL);
-		directory_open_failed(folder_name, failures);
+		if (errno == ENOTDIR && is_a_valid_file(folder_name))
+			ft_lst_push_front(file_list, folder_name);
+		else
+			no_such_file_or_dir(folder_name);
 	}
 }
 
-static t_bool		argument_is_invalid(char *name, t_list **arguments,
+static void			print_files_and_directories(t_list **arguments,
+		t_list **directories, t_list **file_list, t_listing *listing)
+{
+	if (*file_list)
+	{
+		// print_file_list(arguments, file_list, listing)
+		// ft_lstdel(file_list, NULL); // Todo: Segfault
+		listing->should_print_dir_names = 1; // Todo: might not be needed as we know there are more than 1 arguments
+	}
+	if (*directories)
+		do_directories(*arguments, *directories, listing);
+}
+
+static t_bool		link_is_a_file(char *name, t_list **arguments,
 		t_list *arg, t_listing *listing)
 {
 	t_stat			stats;
@@ -50,7 +86,7 @@ static t_bool		argument_is_invalid(char *name, t_list **arguments,
 		if ((opened = opendir(name)))
 		{
 			closedir(opened);
-			return (listing->long_format);
+			return (listing->long_format); // Todo: ???
 		}
 		return (1);
 	}
@@ -60,23 +96,27 @@ static t_bool		argument_is_invalid(char *name, t_list **arguments,
 void				handle_ls(t_list **arguments, t_listing *listing)
 {
 	t_list			*directories;
-	t_list			*failures;
+	t_list			*file_list;
 	t_list			*arg;
 	char			*folder_name;
 
 	directories = NULL;
-	failures = NULL;
+	file_list = NULL;
 	arg = *arguments;
 	while (arg)
 	{
 		folder_name = arg->content;
-		if (argument_is_invalid(folder_name, arguments, arg, listing))
-			ft_lst_push_back(&failures, folder_name);
+		if (link_is_a_file(folder_name, arguments, arg, listing))
+			ft_lst_push_back(&file_list, folder_name);
 		else
-			read_directory(folder_name, &directories, &failures);
+			read_directory(folder_name, &directories, &file_list);
 		arg = arg->next;
 	}
-	// Todo:
-	// Do failures
-	// handle_failures(arguments,  &directories, &failures, listing);
+	if (listing->sort_reverse)
+	{
+		ft_lstrev(arguments);
+		ft_lstrev(&file_list);
+		ft_lstrev(&directories);
+	}
+	print_files_and_directories(arguments, &directories, &file_list, listing);
 }

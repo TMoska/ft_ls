@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   dir_files.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 10:09:03 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/14 22:27:22 by tmoska           ###   ########.fr       */
+/*   Created: 2017/01/14 22:40:00 by tmoska            #+#    #+#             */
+/*   Updated: 2017/01/14 23:07:59 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_ls.h"
+#include <stdio.h>
 
-void	ft_putstr(char const *s)
+t_file	*setup_file(char *folder_name, char *directory, t_listing *listing)
 {
-	ft_putstr_fd(s, 1);
+	t_file		*file;
+
+	file = malloc(sizeof(t_file));
+	ft_bzero(file, sizeof(t_file));
+	file->basename = directory;
+	file->full_name = get_full_name(folder_name, file->basename);
+	(void)listing;
+	return (file);
 }
