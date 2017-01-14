@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 21:42:33 by tmoska            #+#    #+#             */
-/*   Updated: 2016/11/18 21:44:43 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/10 22:01:55 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void		swap_nodes(t_list **current)
+static void		swap_nodes(void **one, void **two)
 {
-	t_list *tmp;
+	void *tmp;
 
-	tmp = (*current);
-	(*current) = (*current)->next;
-	tmp->next = (*current)->next;
-	(*current)->next = tmp;
+	tmp = *two;
+	*two = *one;
+	*one = tmp;
 }
 
 void			ft_lstsort(t_list **begin_list, int (*cmp)())
@@ -30,21 +29,17 @@ void			ft_lstsort(t_list **begin_list, int (*cmp)())
 	if (!(*begin_list))
 		return ;
 	sorted = 0;
+
 	while (!sorted)
 	{
-		tmp = *begin_list;
 		sorted = 1;
-		if ((*cmp)(tmp->content, tmp->next->content) > 0)
+		tmp = *begin_list;
+		while (tmp->next)
 		{
-			swap_nodes(begin_list);
-			sorted = 0;
-		}
-		while (tmp->next->next)
-		{
-			if ((*cmp)(tmp->next->content, tmp->next->next->content) > 0)
+			if (cmp(tmp->content, tmp->next->content) > 0)
 			{
 				sorted = 0;
-				swap_nodes(&(tmp->next));
+				swap_nodes(&tmp->content, &tmp->next->content);
 			}
 			tmp = tmp->next;
 		}

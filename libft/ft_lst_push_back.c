@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_create_elem.c                               :+:      :+:    :+:   */
+/*   ft_lst_push_back.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/09 20:56:57 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/10 15:46:30 by moska            ###   ########.fr       */
+/*   Created: 2017/01/13 15:38:07 by moska             #+#    #+#             */
+/*   Updated: 2017/01/13 19:34:37 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-t_list *ft_lst_create_elem(void *data)
+void  ft_lst_push_back(t_list **begin_list, void *data)
 {
-	t_list *new_list;
+  t_list *new_list;
+  t_list *tmp;
 
-	new_list = malloc(sizeof(t_list));
-	new_list->content = data;
-	new_list->next = NULL;
-	return (new_list);
+  tmp = *begin_list;
+  new_list = ft_lst_create_elem(data);
+  if (*begin_list)
+  {
+    while ((*begin_list)->next)
+      *begin_list = (*begin_list)->next;
+    (*begin_list)->next = new_list;
+    *begin_list = tmp;
+  }
+  else
+    *begin_list = new_list;
 }

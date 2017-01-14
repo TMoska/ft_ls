@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 16:33:19 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/09 21:01:01 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/13 23:29:26 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,9 @@ void				ft_lstrmif(t_list **begin_list,
 					void *data_ref, int (*cmp)());
 void				ft_lst_push_front(t_list **begin_list, void *data);
 t_list				*ft_lst_create_elem(void *data);
+void         ft_lst_removenode(t_list **begin_list, t_list *removable);
+void          ft_lst_push_back(t_list **begin_list, void *data);
+char          *ft_get_path(char *folder_name);
+char       *ft_basename(char *folder_name);
 char				*ft_itoa(int n);
 #endif
