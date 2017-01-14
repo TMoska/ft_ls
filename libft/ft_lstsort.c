@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 21:42:33 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/10 22:01:55 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/14 16:47:21 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void			ft_lstsort(t_list **begin_list, int (*cmp)())
 	if (!(*begin_list))
 		return ;
 	sorted = 0;
-
 	while (!sorted)
 	{
 		sorted = 1;

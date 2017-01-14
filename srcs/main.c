@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 22:09:21 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/10 22:54:58 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/14 16:43:10 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void		assign_option(char c, t_listing *listing)
 }
 
 static void		handle_options(char *s, t_listing *listing)
-{	
+{
 	while (*s)
 	{
 		assign_option(*s, listing);
@@ -55,9 +55,9 @@ static void		handle_options(char *s, t_listing *listing)
 
 static void		prep_arguments(t_list **arguments)
 {
-		if (!(*arguments))
-			ft_lst_push_front(arguments, ft_strdup("./"));
-	  ft_lstsort(arguments, &ft_strcmp);
+	if (!(*arguments))
+		ft_lst_push_front(arguments, ft_strdup("./"));
+	ft_lstsort(arguments, &ft_strcmp);
 }
 
 int				main(int ac, char **av)
