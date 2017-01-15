@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 17:31:34 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/14 23:15:10 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/15 22:42:07 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <dirent.h>
 # include <stdlib.h>
 # include <errno.h>
+# include <time.h>
+# include <unistd.h>
+
+# define BUFF 256
 
 typedef char		t_bool;
 typedef struct stat	t_stat;
@@ -29,12 +33,14 @@ typedef struct stat	t_stat;
 typedef struct		s_listing
 {
 	t_bool			recursive;
+	t_bool			recursing;
 	t_bool			all;
 	t_bool			long_format;
 	t_bool			sort_reverse;
 	t_bool			sort_time_modified;
 	t_bool			should_print_dir_names;
 	t_bool			printed_folder_already;
+	t_bool			should_handle_screwups;
 }					t_listing;
 
 typedef struct		s_file

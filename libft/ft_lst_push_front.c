@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 20:48:47 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/14 16:49:22 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/15 19:24:08 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ void	ft_lst_push_front(t_list **begin_list, void *data)
 
 	new_list = ft_lst_create_elem(data);
 	new_list->next = *begin_list;
-	*begin_list = new_list;
+	*begin_list = new_list;	
 }

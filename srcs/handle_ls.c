@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_ls.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:59:22 by moska             #+#    #+#             */
-/*   Updated: 2017/01/14 23:10:44 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/15 23:50:08 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ static void			read_directory(char *folder_name, t_list **directories,
 	if ((opened = opendir(folder_name)))
 	{
 		while ((read = readdir(opened)))
+		{
+			printf("file: %s\n", read->d_name);
 			ft_lst_push_front(&files, ft_strdup(read->d_name));
+		}
 		ft_lst_push_back(directories, files);
 		closedir(opened);
 	}
@@ -61,13 +64,14 @@ static void			read_directory(char *folder_name, t_list **directories,
 static void			print_files_and_directories(t_list **arguments,
 		t_list **directories, t_list **file_list, t_listing *listing)
 {
-	if (*file_list)
+	if (*file_list && listing->should_handle_screwups)
 	{
 		// print_file_list(arguments, file_list, listing)
-		// ft_lstdel(file_list, NULL); // Todo: Segfault
+		ft_lstdel(file_list, NULL); // Todo: Segfault
 		listing->should_print_dir_names = 1; // Todo: might not be needed as we know there are more than 1 arguments
 	}
-	if (*directories)
+	listing->should_handle_screwups = 0;
+	if (directories)
 		do_directories(*arguments, *directories, listing);
 }
 
@@ -83,7 +87,8 @@ static t_bool		link_is_a_file(char *name, t_list **arguments,
 		ft_lst_removenode(arguments, arg);
 	else if (S_ISLNK(stats.st_mode))
 	{
-		if ((opened = opendir(name)))
+		opened = opendir(name);
+		if (opened)
 		{
 			closedir(opened);
 			return (listing->long_format); // Todo: ???
@@ -93,6 +98,15 @@ static t_bool		link_is_a_file(char *name, t_list **arguments,
 	return (0);
 }
 
+static void			setup(t_list **directories, t_list **file_list
+							, t_list **arguments, t_list **arg)
+{
+	ft_lstsort(arguments, &ft_strcmp);
+	*directories = NULL;
+	*file_list = NULL;
+	*arg = *arguments;
+}
+
 void				handle_ls(t_list **arguments, t_listing *listing)
 {
 	t_list			*directories;
@@ -100,13 +114,11 @@ void				handle_ls(t_list **arguments, t_listing *listing)
 	t_list			*arg;
 	char			*folder_name;
 
-	directories = NULL;
-	file_list = NULL;
-	arg = *arguments;
+	setup(&directories, &file_list, arguments, &arg);
 	while (arg)
 	{
-		folder_name = arg->content;
-		if (link_is_a_file(folder_name, arguments, arg, listing))
+		folder_name = (char*)arg->content;
+		if (listing->should_handle_screwups && link_is_a_file(folder_name, arguments, arg, listing))
 			ft_lst_push_back(&file_list, folder_name);
 		else
 			read_directory(folder_name, &directories, &file_list);

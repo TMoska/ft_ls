@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 22:09:21 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/14 23:11:21 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/15 23:05:39 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void		prep_arguments(t_list **arguments)
 {
 	if (!(*arguments))
 		ft_lst_push_front(arguments, ft_strdup("./"));
-	ft_lstsort(arguments, &ft_strcmp);
 }
 
 int				main(int ac, char **av)
@@ -73,6 +72,7 @@ int				main(int ac, char **av)
 	}
 	listing.should_print_dir_names = ft_lstsize(arguments) > 1;
 	prep_arguments(&arguments);
+	listing.should_handle_screwups = 1;
 	handle_ls(&arguments, &listing);
 	return (0);
 }
