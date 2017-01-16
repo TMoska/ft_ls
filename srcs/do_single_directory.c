@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_single_directory.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/15 23:39:16 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/17 00:30:04 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ static void		do_recursiveness(t_list *dir_files, t_listing *listing)
 				&& !ft_strequ(file->basename, ".")
 				&& !ft_strequ(file->basename, "..")
 				&& !link_to_self(file))
-		{
-			printf("pushing: %s\n", file->full_name);
 			ft_lst_push_front(&folders, file->full_name);
-		}
 		dir_files = dir_files->next;
 	}
 	if (folders)

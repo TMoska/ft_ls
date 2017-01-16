@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_ls.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:59:22 by moska             #+#    #+#             */
-/*   Updated: 2017/01/15 23:50:08 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/17 00:33:46 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ static void			read_directory(char *folder_name, t_list **directories,
 	if ((opened = opendir(folder_name)))
 	{
 		while ((read = readdir(opened)))
-		{
-			printf("file: %s\n", read->d_name);
 			ft_lst_push_front(&files, ft_strdup(read->d_name));
-		}
 		ft_lst_push_back(directories, files);
 		closedir(opened);
 	}

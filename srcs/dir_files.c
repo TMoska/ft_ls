@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dir_files.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:40:00 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/15 22:50:17 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/16 23:53:32 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ t_bool	setup_stats(t_file *file)
 	{
 		perror(file->full_name);
 		free(file->lstat);
-		return (0);
+		return (1);
 	}
-	file->stat = malloc(sizeof(stat));
+	file->stat = malloc(sizeof(t_stat));
 	if (stat(file->full_name, file->stat))
 		file->stat = file->lstat;
 	file->is_symlink = S_ISLNK(file->lstat->st_mode);
 	file->time_generated = time(NULL);
-	return (1);
+	return (0);
 }
 
 char	*get_full_name(char *folder_name, char *basename)
@@ -55,7 +55,7 @@ t_file	*setup_file(char *folder_name, char *file_name, t_listing *listing)
 	file->basename = file_name;
 	file->full_name = get_full_name(folder_name, file->basename);
 	if ((listing->recursive || listing->long_format ||
-		listing->sort_time_modified) && !setup_stats(file))
+		listing->sort_time_modified) && setup_stats(file))
 	{
 		free(file);
 		return (NULL);	
