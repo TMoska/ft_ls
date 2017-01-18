@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 20:18:13 by moska             #+#    #+#             */
-/*   Updated: 2017/01/17 20:48:05 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/18 21:48:21 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ t_stat *to_lstat_or_not_to_lstat(t_file *file)
 {
   if (file->is_symlink)
     return (file->lstat);
-  return (file->stat);
+  else
+    return (file->stat);
 }
 
 static  int sort_by_basename(void *one, void *two)

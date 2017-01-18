@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 22:09:21 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/15 23:05:39 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/18 22:08:34 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void		handle_options(char *s, t_listing *listing)
 			listing->sort_reverse = 1;
 		else if (c == 't')
 			listing->sort_time_modified = 1;
+		else if (c == '1')
+			printf("");
 		else
 		{
 			ft_putstr_fd("ft_ls: illegal option -- ", 2);

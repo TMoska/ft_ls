@@ -6,14 +6,28 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 16:33:19 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/18 00:42:29 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/18 22:03:32 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <sys/types.h>
 # include <string.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <dirent.h>
+# include "libft.h"
+# include <sys/stat.h>
+# include <errno.h>
+# include <pwd.h>
+# include <grp.h>
+# include <time.h>
+# include <sys/types.h>
+# include <sys/xattr.h>
+
+typedef char    t_bool;
 
 typedef	struct		s_list
 {
@@ -101,4 +115,9 @@ int   ft_ptrequ(const void *one, const void *two);
 char				*ft_get_path(char *folder_name);
 char				*ft_basename(char *folder_name);
 char				*ft_itoa(int n);
+char    *ft_itoa_ularge(unsigned long long number);
+int   ft_count_umax_digits(uintmax_t number);
+void  ft_put_justified_str(char *str, size_t tot_size, char fill, t_bool right);
+void  ft_put_justified_nbr(int nb, size_t tot_size, char fill, t_bool right);
+void    ft_putchar_if(int condition, char pos, char neg);
 #endif
