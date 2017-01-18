@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_lst_remove_if.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/17 17:00:08 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/17 23:42:05 by moska            ###   ########.fr       */
+/*   Created: 2017/01/18 00:38:15 by moska             #+#    #+#             */
+/*   Updated: 2017/01/18 02:54:56 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-char	*ft_strdup(char *src)
+void    ft_lst_remove_if(t_list **begin_list, void *content, int (*cmp)())
 {
-	char	*str;
+  t_list  *match;
 
-	if ((str = (char*)malloc(sizeof(*str) * (ft_strlen(src) + 1))))
-		ft_strcpy(str, src);
-	else
-		return (0);
-	return (str);
+  if (*begin_list)
+  {
+    if (cmp((*begin_list)->content, content))
+    {
+      match = *begin_list;
+      *begin_list = (*begin_list)->next;
+      free(match);
+      ft_lst_remove_if(begin_list, content, cmp);
+    }
+    else
+      ft_lst_remove_if(&(*begin_list)->next, content, cmp);
+  }
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+         #
+#    By: moska <moska@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/09 17:36:12 by tmoska            #+#    #+#              #
-#    Updated: 2017/01/14 22:40:53 by tmoska           ###   ########.fr        #
+#    Updated: 2017/01/17 20:18:35 by moska            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ INC_FLAGS 	= -I./includes -I $(LIB_PATH)/includes
 
 SRC_DIR 	= srcs
 SRC_FILES 	= main.c handle_ls.c failures.c directories.c printing.c \
-			  do_single_directory.c dir_files.c
+			  do_single_directory.c dir_files.c sorting.c
 
 SOURCES		= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

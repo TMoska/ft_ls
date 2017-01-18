@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   directories.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 19:05:45 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/15 23:31:10 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/18 03:43:44 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,8 @@ void		do_directories(t_list *arg, t_list *directory, t_listing *listing)
 		should_print_folder = do_print_folder(folder_name, listing);
 		if (listing->should_print_dir_names && should_print_folder)
 			print_folder(folder_name, listing);
-		if (directory->content)
-		{
+		if ((t_list*)(directory->content))
 			do_single_directory(folder_name, (t_list*)(directory->content), should_print_folder, listing);
-			while (((t_list*)directory->content))
-			{
-				printf("%s\n", ((t_list*)directory->content)->content);
-				directory->content = ((t_list*)directory->content)->next;
-			}
-		}
 		arg = arg->next;
 		directory = directory->next;
 	}

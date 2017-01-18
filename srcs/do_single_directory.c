@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/17 00:30:04 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/17 23:43:46 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,18 @@ void	do_single_directory(char *folder_name, t_list *directory,
 {
 	t_list			*dir_files;
 	t_file			*file;
-	char			*tmp;
 
 	dir_files = NULL;
-	while (directory)
+	while (directory && (file = setup_file(folder_name, ft_strdup((char*)directory->content), listing)))
 	{
-		tmp = ft_strdup((char*)directory->content);
-		if ((file = setup_file(folder_name, tmp, listing)))
-			ft_lst_push_front(&dir_files, file);
+		ft_lst_push_front(&dir_files, file);
 		directory = directory->next;
 	}
 	if (dir_files)
 	{
-		(void)should_print_folder;
-		// sort
-		// if (should_print_folder)
-			// print files
+		sort_files(&dir_files, listing);
+		(void)(should_print_folder);
+		print_files(dir_files, listing);
 		if (listing->recursive)
 			do_recursiveness(dir_files, listing);
 	}

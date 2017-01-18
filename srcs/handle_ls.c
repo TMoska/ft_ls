@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:59:22 by moska             #+#    #+#             */
-/*   Updated: 2017/01/17 00:33:46 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/18 03:44:58 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void			read_directory(char *folder_name, t_list **directories,
 	}
 	else
 	{
-		ft_lst_push_back(directories, NULL);
+		// ft_lst_push_back(directories, NULL);
 		if (errno == ENOTDIR && is_a_valid_file(folder_name))
 			ft_lst_push_front(file_list, folder_name);
 		else
@@ -58,13 +58,37 @@ static void			read_directory(char *folder_name, t_list **directories,
 	}
 }
 
+static void			print_file_list(t_list *file_list, t_list **arguments, t_listing *listing)
+{
+	t_list *files;
+
+	files = NULL;
+	while (file_list)
+	{
+		ft_lst_push_front(&files, setup_file("./", (char*)file_list->content, listing));
+		ft_lst_remove_if(arguments, file_list->content, &ft_ptrequ);
+		(void)arguments;
+		file_list = file_list->next;
+	}
+	listing->handling_screwups = 1;
+	sort_files(&files, listing);
+	print_files(files, listing);
+	listing->handling_screwups = 0;
+}
+
 static void			print_files_and_directories(t_list **arguments,
 		t_list **directories, t_list **file_list, t_listing *listing)
 {
+	if (listing->sort_reverse)
+	{
+		ft_lstrev(arguments);
+		ft_lstrev(file_list);
+		ft_lstrev(directories);
+	}
 	if (*file_list && listing->should_handle_screwups)
 	{
-		// print_file_list(arguments, file_list, listing)
-		ft_lstdel(file_list, NULL); // Todo: Segfault
+		print_file_list(*file_list, arguments, listing);
+		ft_lstdel(file_list, NULL);
 		listing->should_print_dir_names = 1; // Todo: might not be needed as we know there are more than 1 arguments
 	}
 	listing->should_handle_screwups = 0;
@@ -120,12 +144,6 @@ void				handle_ls(t_list **arguments, t_listing *listing)
 		else
 			read_directory(folder_name, &directories, &file_list);
 		arg = arg->next;
-	}
-	if (listing->sort_reverse)
-	{
-		ft_lstrev(arguments);
-		ft_lstrev(&file_list);
-		ft_lstrev(&directories);
 	}
 	print_files_and_directories(arguments, &directories, &file_list, listing);
 }

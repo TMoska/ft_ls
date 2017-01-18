@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 17:31:34 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/15 22:42:07 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/18 02:02:51 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct		s_listing
 	t_bool			should_print_dir_names;
 	t_bool			printed_folder_already;
 	t_bool			should_handle_screwups;
+	t_bool			handling_screwups;
 }					t_listing;
 
 typedef struct		s_file
@@ -58,6 +59,15 @@ typedef struct		s_file
 	int				is_symlink;
 }					t_file;
 
+typedef	struct 	s_strlens
+{
+	int			nlink;
+	uintmax_t	username;
+	uintmax_t	group_name;
+	int			major;
+	int			file_size;
+}								t_strlens;
+
 void				handle_ls(t_list **arguments, t_listing *listing);
 void				no_such_file_or_dir(char *folder_name);
 void				exit_if_arg_empty(char *arg);
@@ -68,4 +78,8 @@ void				do_single_directory(char *folder_name, t_list *directory, \
 					t_bool should_print_folder, t_listing *listing);
 t_file				*setup_file(char *folder_name, char *directory,\
 					t_listing *listing);
+void    	sort_files(t_list **dir_files, t_listing *listing);
+void    print_files(t_list *dir_files, t_listing *listing);
+t_bool        should_print_entry(t_file *file, t_listing *listing);
+void		print_list(t_list *begin_list);
 #endif
