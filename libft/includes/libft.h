@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 16:33:19 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/18 22:03:32 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/19 01:04:13 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <sys/types.h>
 # include <sys/xattr.h>
 
-typedef char    t_bool;
+typedef char		t_bool;
 
 typedef	struct		s_list
 {
@@ -110,14 +110,17 @@ void				ft_lst_push_front(t_list **begin_list, void *data);
 t_list				*ft_lst_create_elem(void *data);
 void				ft_lst_removenode(t_list **begin_list, t_list *removable);
 void				ft_lst_push_back(t_list **begin_list, void *data);
-void    ft_lst_remove_if(t_list **begin_list, void *content, int (*cmp)());
-int   ft_ptrequ(const void *one, const void *two);
+void				ft_lst_remove_if(t_list **begin_list, void *content,\
+		int (*cmp)());
+int					ft_ptrequ(const void *one, const void *two);
 char				*ft_get_path(char *folder_name);
 char				*ft_basename(char *folder_name);
 char				*ft_itoa(int n);
-char    *ft_itoa_ularge(unsigned long long number);
-int   ft_count_umax_digits(uintmax_t number);
-void  ft_put_justified_str(char *str, size_t tot_size, char fill, t_bool right);
-void  ft_put_justified_nbr(int nb, size_t tot_size, char fill, t_bool right);
-void    ft_putchar_if(int condition, char pos, char neg);
+char				*ft_itoa_ularge(unsigned long long number);
+int					ft_count_umax_digits(uintmax_t number);
+void				ft_put_justified_str(char *str, size_t tot_size,\
+		char fill, t_bool right);
+void				ft_put_justified_nbr(int nb, size_t tot_size,\
+		char fill, t_bool right);
+void				ft_putchar_if(int condition, char pos, char neg);
 #endif

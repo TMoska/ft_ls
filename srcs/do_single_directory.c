@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   do_single_directory.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/17 23:43:46 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/19 02:59:42 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <stdio.h>
 
 static	void	recurse(t_list **arguments, t_listing *listing)
 {
-	int		recursive_loop;
+	int			recursive_loop;
 
 	listing->should_print_dir_names = 1;
 	recursive_loop = listing->recursing;
 	listing->recursing = 1;
-	handle_ls(arguments, listing);
+	start_listing(arguments, listing);
 	listing->recursing = recursive_loop;
 }
 
@@ -35,10 +34,10 @@ static t_bool	link_to_self(t_file *file)
 		if (lu >= BUFF)
 		{
 			ft_putendl("Link filename too long");
-			exit (1);
+			exit(1);
 		}
 		link[lu] = '\0';
-		if (ft_strequ(link, "./") || ft_strequ(link, ".")) // Todo: or ft_streq(*link, ".");
+		if (ft_strequ(link, "./") || ft_strequ(link, "."))
 			return (1);
 	}
 	return (0);
@@ -46,8 +45,8 @@ static t_bool	link_to_self(t_file *file)
 
 static void		do_recursiveness(t_list *dir_files, t_listing *listing)
 {
-	t_list *folders;
-	t_file *file;
+	t_list		*folders;
+	t_file		*file;
 
 	folders = NULL;
 	while (dir_files)
@@ -64,14 +63,15 @@ static void		do_recursiveness(t_list *dir_files, t_listing *listing)
 		recurse(&folders, listing);
 }
 
-void	do_single_directory(char *folder_name, t_list *directory,
+void			do_single_directory(char *folder_name, t_list *directory,
 								t_bool should_print_folder, t_listing *listing)
 {
-	t_list			*dir_files;
-	t_file			*file;
+	t_list		*dir_files;
+	t_file		*file;
 
 	dir_files = NULL;
-	while (directory && (file = setup_file(folder_name, ft_strdup((char*)directory->content), listing)))
+	while (directory && (file = setup_file(folder_name,\
+					ft_strdup((char*)directory->content), listing)))
 	{
 		ft_lst_push_front(&dir_files, file);
 		directory = directory->next;
@@ -79,8 +79,8 @@ void	do_single_directory(char *folder_name, t_list *directory,
 	if (dir_files)
 	{
 		sort_files(&dir_files, listing);
-		(void)(should_print_folder);
-		print_files(dir_files, listing);
+		if (should_print_folder)
+			print_files(dir_files, listing);
 		if (listing->recursive)
 			do_recursiveness(dir_files, listing);
 	}

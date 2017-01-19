@@ -6,13 +6,13 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 00:36:24 by moska             #+#    #+#             */
-/*   Updated: 2017/01/18 00:36:58 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/19 01:06:21 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int   ft_ptrequ(const void *one, const void *two)
+int	ft_ptrequ(const void *one, const void *two)
 {
-  return (one == two);
+	return (one == two);
 }

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dir_files.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:40:00 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/16 23:53:32 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/19 03:00:56 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <stdio.h>
 
 t_bool	setup_stats(t_file *file)
 {
@@ -35,7 +34,7 @@ char	*get_full_name(char *folder_name, char *basename)
 	char *ret;
 
 	if (*basename == '/')
-		return(ft_strdup(basename));
+		return (ft_strdup(basename));
 	if (folder_name[ft_strlen(folder_name) - 1] == '/')
 		ret = ft_strjoin(folder_name, basename);
 	else
@@ -58,7 +57,7 @@ t_file	*setup_file(char *folder_name, char *file_name, t_listing *listing)
 		listing->sort_time_modified) && setup_stats(file))
 	{
 		free(file);
-		return (NULL);	
+		return (NULL);
 	}
 	return (file);
 }

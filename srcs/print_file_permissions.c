@@ -3,58 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   print_file_permissions.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 21:31:46 by moska             #+#    #+#             */
-/*   Updated: 2017/01/18 22:04:26 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/19 02:59:57 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char        first_executable_permissions(mode_t mode)
+static char	list_attributes(t_file *file)
 {
-  if (mode & S_ISUID)
-    return ((mode & S_IXUSR) ? 's' : 'S');
-  return ((mode & S_IXUSR) ? 'x' : '-');
+	if ((!file->is_symlink && listxattr(file->full_name, NULL, 0, 0) > 0)
+			|| (file->is_symlink
+				&& listxattr(file->full_name, NULL, 0, XATTR_NOFOLLOW) > 0))
+		return ('@');
+	return (' ');
 }
 
-char        second_executable_permissions(mode_t mode)
+static void	user_permissions(mode_t mode)
 {
-  if (mode & S_ISGID)
-    return ((mode & S_IXGRP) ? 's' : 'S');
-  return ((mode & S_IXGRP) ? 'x' : '-');
+	ft_putchar_if((mode & S_IRUSR), 'r', '-');
+	ft_putchar_if(mode & S_IWUSR, 'w', '-');
+	if (mode & S_ISUID)
+		ft_putchar((mode & S_IXUSR) ? 's' : 'S');
+	else
+		ft_putchar((mode & S_IXUSR) ? 'x' : '-');
 }
 
-char        third_executable_permissions(mode_t mode)
+static void	group_permissions(mode_t mode)
 {
-  if (mode & S_ISVTX)
-    return ((mode & S_IXOTH) ? 't' : 'T');
-  return ((mode & S_IXOTH) ? 'x' : '-');
+	ft_putchar_if(mode & S_IRGRP, 'r', '-');
+	ft_putchar_if(mode & S_IWGRP, 'w', '-');
+	if (mode & S_ISGID)
+		ft_putchar((mode & S_IXGRP) ? 's' : 'S');
+	else
+		ft_putchar((mode & S_IXGRP) ? 'x' : '-');
 }
 
-char        list_attributes(t_file *file)
+static void	other_permissions(mode_t mode)
 {
-  if ((!file->is_symlink && listxattr(file->full_name, NULL, 0, 0) > 0)
-    || (file->is_symlink 
-    && listxattr(file->full_name, NULL, 0, XATTR_NOFOLLOW) > 0))
-    return ('@');
-  return (' ');
+	ft_putchar_if(mode & S_IROTH, 'r', '-');
+	ft_putchar_if(mode & S_IWOTH, 'w', '-');
+	if (mode & S_ISVTX)
+		ft_putchar((mode & S_IXOTH) ? 't' : 'T');
+	else
+		ft_putchar((mode & S_IXOTH) ? 'x' : '-');
 }
 
-void print_file_permissions(t_file *file)
+void		print_file_permissions(t_file *file)
 {
-  mode_t mode;
+	mode_t mode;
 
-  mode = to_lstat_or_not_to_lstat(file)->st_mode;
-  ft_putchar_if((mode & S_IRUSR), 'r', '-');
-  ft_putchar_if(mode & S_IWUSR, 'w', '-');
-  ft_putchar(first_executable_permissions(mode));
-  ft_putchar_if(mode & S_IRGRP, 'r', '-');
-  ft_putchar_if(mode & S_IWGRP, 'w', '-');
-  ft_putchar(second_executable_permissions(mode));
-  ft_putchar_if(mode & S_IROTH, 'r', '-');
-  ft_putchar_if(mode & S_IWOTH, 'w', '-');
-  ft_putchar(third_executable_permissions(mode));
-  ft_putchar(list_attributes(file));  
+	mode = lstat_or_stat(file)->st_mode;
+	user_permissions(mode);
+	group_permissions(mode);
+	other_permissions(mode);
+	ft_putchar(list_attributes(file));
 }
