@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 17:31:34 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/19 02:44:12 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/19 06:54:21 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct stat	t_stat;
 typedef struct		s_listing
 {
 	t_bool			one_per_line;
+	t_bool			dir_as_files;
 	t_bool			recursive;
 	t_bool			recursing;
 	t_bool			all;
@@ -99,5 +100,7 @@ void				replace_if_greater(uintmax_t *old, uintmax_t new);
 void				print_single_file(t_file *file, t_listing *listing,\
 	t_strlens *strlens);
 void				illegal_option(char c);
+void				print_file_list(t_list *file_list, t_list **arguments,\
+	t_listing *listing);
 
 #endif

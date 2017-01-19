@@ -6,11 +6,12 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 19:05:45 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/19 02:59:43 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/19 04:17:42 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include <stdio.h>
 
 int			is_a_dot_file(char *folder_name)
 {
@@ -45,10 +46,8 @@ void		do_directories(t_list *arg, t_list *directory, t_listing *listing)
 		if (listing->should_print_dir_names && should_print_folder)
 			print_folder(folder_name, listing);
 		if ((t_list*)(directory->content))
-		{
 			do_single_directory(folder_name, (t_list*)(directory->content),\
 					should_print_folder, listing);
-		}
 		arg = arg->next;
 		directory = directory->next;
 	}

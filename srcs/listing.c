@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:59:22 by moska             #+#    #+#             */
-/*   Updated: 2017/01/19 03:01:21 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/19 05:16:13 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void			read_directory(char *folder_name, t_list **directories,
 	}
 	else
 	{
+		ft_lst_push_back(directories, NULL);
 		if (errno == ENOTDIR && is_a_valid_file(folder_name))
 			ft_lst_push_front(file_list, folder_name);
 		else
@@ -111,5 +112,7 @@ void				start_listing(t_list **arguments, t_listing *listing)
 		ft_lstrev(&file_list);
 		ft_lstrev(&directories);
 	}
+	if (listing->dir_as_files)
+		print_file_list(*arguments, arguments, listing);
 	print_files_and_directories(arguments, &directories, &file_list, listing);
 }

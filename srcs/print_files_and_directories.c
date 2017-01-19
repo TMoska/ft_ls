@@ -6,13 +6,13 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 01:22:28 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/19 02:59:58 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/19 06:52:59 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		print_file_list(t_list *file_list, t_list **arguments,\
+void	print_file_list(t_list *file_list, t_list **arguments, \
 		t_listing *listing)
 {
 	t_list *files;
@@ -31,7 +31,7 @@ static void		print_file_list(t_list *file_list, t_list **arguments,\
 	listing->handle_singles = 0;
 }
 
-void			print_files_and_directories(t_list **arguments,
+void	print_files_and_directories(t_list **arguments,
 		t_list **directories, t_list **file_list, t_listing *listing)
 {
 	if (*file_list && listing->should_handle_screwups)
@@ -41,6 +41,6 @@ void			print_files_and_directories(t_list **arguments,
 		listing->should_print_dir_names = 1;
 	}
 	listing->should_handle_screwups = 0;
-	if (directories)
+	if (directories && !listing->dir_as_files)
 		do_directories(*arguments, *directories, listing);
 }
