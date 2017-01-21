@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 22:09:21 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 13:57:49 by amarzial         ###   ########.fr       */
+/*   Updated: 2017/01/21 16:12:54 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ static void		handle_options(char c, t_listing *listing, t_bonus *bonus)
 
 static	void	setup(t_list **arguments, t_listing *listing, t_bonus *bonus)
 {
-	ft_bzero(&listing, sizeof(t_listing));
-	ft_bzero(&bonus, sizeof(t_bonus));
+	ft_bzero(listing, sizeof(t_listing));
+	ft_bzero(bonus, sizeof(t_bonus));
 	*arguments = NULL;
-
 }
 
 static void		prep_arguments_and_listing(t_list **arguments,\
