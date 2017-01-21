@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 19:05:45 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 05:55:20 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 14:02:06 by amarzial         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	check_permissions(char *folder_name, t_list *directory, \
 	t_bool			should_print_folder;
 
 	should_print_folder = do_print_folder(folder_name, listing);
+	(void)should_print_folder;
 	if (!(opened = opendir(folder_name)))
 	{
 		if (!(errno == ENOENT || errno == ENOTDIR))
@@ -67,6 +68,8 @@ void		do_directories(t_list *arg, t_list *directory, t_listing *listing\
 
 	arguments = arg;
 	dirs = directory;
+	(void)arguments;
+	(void)dirs;
 	while (arg)
 	{
 		folder_name = (char *)arg->content;
