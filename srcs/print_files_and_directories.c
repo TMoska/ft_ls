@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 01:22:28 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 05:38:16 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 05:58:09 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	print_file_list(t_list *file_list, t_list **arguments, \
 	listing->handling_singles = 0;
 }
 
-void	print_files_and_directories(t_list **arguments, t_list **directories, \
+void	print_files_and_directories(t_list **arguments, \
 	t_list **file_list, t_listing *listing, t_bonus *bonus)
 {
 	if (bonus->d)
@@ -43,6 +43,4 @@ void	print_files_and_directories(t_list **arguments, t_list **directories, \
 		listing->should_print_dir_names = 1;
 	}
 	listing->handle_singles = 0;
-	if (directories)
-		do_directories(*arguments, *directories, listing, bonus);
 }
