@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:59:22 by moska             #+#    #+#             */
-/*   Updated: 2017/01/19 05:16:13 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 05:37:55 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int			is_a_valid_file(char *folder_name)
 }
 
 static void			read_directory(char *folder_name, t_list **directories,
-		t_list **file_list)
+		t_list **file_list, t_listing *listing)
 {
 	DIR				*opened;
 	t_list			*files;
@@ -49,11 +49,12 @@ static void			read_directory(char *folder_name, t_list **directories,
 	}
 	else
 	{
-		ft_lst_push_back(directories, NULL);
+		if (listing->recursive_depth)
+			ft_lst_push_back(directories, NULL);
 		if (errno == ENOTDIR && is_a_valid_file(folder_name))
 			ft_lst_push_front(file_list, folder_name);
 		else
-			no_such_file_or_dir(folder_name);
+			no_such_file_or_dir(folder_name, listing, directories);
 	}
 }
 
@@ -88,31 +89,32 @@ static void			setup(t_list **directories, t_list **file_list \
 	*arg = *arguments;
 }
 
-void				start_listing(t_list **arguments, t_listing *listing)
+void				start_listing(t_list **arggs, t_listing *listing, \
+	t_bonus *bonus)
 {
-	t_list			*directories;
+	t_list			*dir_list;
 	t_list			*file_list;
 	t_list			*arg;
 	char			*folder_name;
 
-	setup(&directories, &file_list, arguments, &arg);
+	setup(&dir_list, &file_list, arggs, &arg);
 	while (arg)
 	{
 		folder_name = (char*)arg->content;
-		if (listing->should_handle_screwups \
-				&& link_is_a_file(folder_name, arguments, arg, listing))
+		if (listing->handle_singles \
+				&& link_is_a_file(folder_name, arggs, arg, listing))
 			ft_lst_push_back(&file_list, folder_name);
 		else
-			read_directory(folder_name, &directories, &file_list);
+			read_directory(folder_name, &dir_list, &file_list, listing);
 		arg = arg->next;
 	}
 	if (listing->sort_reverse)
 	{
-		ft_lstrev(arguments);
+		ft_lstrev(arggs);
 		ft_lstrev(&file_list);
-		ft_lstrev(&directories);
+		ft_lstrev(&dir_list);
 	}
-	if (listing->dir_as_files)
-		print_file_list(*arguments, arguments, listing);
-	print_files_and_directories(arguments, &directories, &file_list, listing);
+	if (bonus->d)
+		print_file_list(*arggs, arggs, listing, bonus);
+	print_files_and_directories(arggs, &dir_list, &file_list, listing, bonus);
 }

@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 20:16:22 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/19 05:28:32 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 05:21:47 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void		print_folder(char *folder_name, t_listing *listing)
 
 t_bool		should_print_entry(t_file *file, t_listing *listing)
 {
-	return (*file->basename != '.' || listing->all || listing->handle_singles);
+	return (*file->basename != '.' || listing->all \
+		|| listing->handling_singles);
 }
 
 static void	print_total_block_size(t_list *dir_files)
@@ -45,7 +46,8 @@ static void	print_total_block_size(t_list *dir_files)
 	ft_putchar('\n');
 }
 
-static void	print_all(t_list *dir_files, t_strlens *strlens, t_listing *listing)
+static void	print_all(t_list *dir_files, t_strlens *strlens,\
+	t_listing *listing, t_bonus *bonus)
 {
 	t_file	*file;
 	t_bool	first;
@@ -57,20 +59,20 @@ static void	print_all(t_list *dir_files, t_strlens *strlens, t_listing *listing)
 		file = (t_file*)dir_files->content;
 		if (should_print_entry(file, listing))
 		{
-			if (first && listing->long_format && !listing->handle_singles)
+			if (first && listing->long_format && !listing->handling_singles)
 				print_total_block_size(dir_files);
-			print_single_file(file, listing, strlens);
+			print_single_file(file, listing, strlens, bonus);
 			first = 0;
 		}
 		dir_files = dir_files->next;
 	}
 }
 
-void		print_files(t_list *dir_files, t_listing *listing)
+void		print_files(t_list *dir_files, t_listing *listing, t_bonus *bonus)
 {
 	t_strlens strlens;
 
 	if (listing->long_format)
 		formatting(&strlens, dir_files, listing);
-	print_all(dir_files, &strlens, listing);
+	print_all(dir_files, &strlens, listing, bonus);
 }

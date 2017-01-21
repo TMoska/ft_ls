@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 01:50:30 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/19 05:38:15 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 05:37:50 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ static void	print_time(t_file *file)
 	stat_time = lstat_or_stat(file)->st_mtimespec.tv_sec;
 	str = ft_strdup(ctime(&stat_time));
 	write(1, str + 4, 7);
-	diff = file->time_generated - stat_time;
-	if (diff > SIX_MONTHS_SECONDS || diff < -SIX_MONTHS_SECONDS)
+	diff = time(NULL) - stat_time;
+	if (stat_time >= 253402300740)
+		write(1, str + 23, 6);
+	else if (diff > SIX_MONTHS_SECONDS || diff < 0)
 		write(1, str + 19, 5);
 	else
 		write(1, str + 11, 5);
@@ -54,26 +56,33 @@ static void	print_size(t_file *file, t_strlens *strlens)
 				(strlens->major ? 4 : 2), ' ', 1);
 }
 
-static void	print_options(t_file *file, t_strlens *strlens)
+static void	print_options(t_file *file, t_strlens *strlens, t_bonus *bonus)
 {
 	ft_putchar(file->file_type);
 	print_file_permissions(file);
 	ft_put_justified_nbr(lstat_or_stat(file)->st_nlink,\
 			strlens->nlink + 1, ' ', 1);
 	ft_putstr(" ");
-	ft_put_justified_str(file->owner, strlens->owner + 2, ' ', 0);
-	ft_put_justified_str(file->group, strlens->group, ' ', 0);
+	if (!bonus->g && !bonus->o)
+	{
+		ft_put_justified_str(file->owner, strlens->owner + 2, ' ', 0);
+		ft_put_justified_str(file->group, strlens->group, ' ', 0);
+	}
+	else if (!bonus->g && bonus->o)
+		ft_put_justified_str(file->owner, strlens->owner, ' ', 0);
+	else if (bonus->g && !bonus->o)
+		ft_put_justified_str(file->group, strlens->group, ' ', 0);
 	print_size(file, strlens);
 	ft_putstr(" ");
 	print_time(file);
 }
 
 void		print_single_file(t_file *file, t_listing *listing, \
-	t_strlens *strlens)
+	t_strlens *strlens, t_bonus *bonus)
 {
 	if (listing->long_format)
 	{
-		print_options(file, strlens);
+		print_options(file, strlens, bonus);
 		ft_putchar(' ');
 		ft_putstr(file->basename);
 		print_symlink_arrow_link(file);

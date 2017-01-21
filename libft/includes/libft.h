@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 16:33:19 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/19 06:38:33 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 01:53:51 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,4 +123,6 @@ void				ft_put_justified_str(char *str, size_t tot_size,\
 void				ft_put_justified_nbr(int nb, size_t tot_size,\
 		char fill, t_bool right);
 void				ft_putchar_if(int condition, char pos, char neg);
+int					ft_lst_in_list(t_list *begin_list, void *data,\
+		int (*cmp)());
 #endif

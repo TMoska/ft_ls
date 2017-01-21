@@ -6,13 +6,13 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 22:09:21 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/19 06:54:35 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 05:38:22 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		handle_options(char c, t_listing *listing)
+static void		handle_options(char c, t_listing *listing, t_bonus *bonus)
 {
 	if (c == 'R')
 		listing->recursive = 1;
@@ -24,20 +24,14 @@ static void		handle_options(char c, t_listing *listing)
 		listing->sort_reverse = 1;
 	else if (c == 't')
 		listing->sort_time_modified = 1;
-	else if (c == 'd')
-		listing->dir_as_files = 1;
-	else if (c == '1')
-	{
-		listing->one_per_line = 1;
-		listing->long_format = 0;
-	}
-	else
+	else if (!handle_bonus(c, listing, bonus))
 		illegal_option(c);
 }
 
-static	void	setup(t_list **arguments, t_listing *listing)
+static	void	setup(t_list **arguments, t_listing *listing, t_bonus *bonus)
 {
 	ft_bzero(&listing, sizeof(t_listing));
+	ft_bzero(&bonus, sizeof(t_bonus));
 	arguments = NULL;
 }
 
@@ -47,7 +41,7 @@ static void		prep_arguments_and_listing(t_list **arguments,\
 	if (!(*arguments))
 		ft_lst_push_front(arguments, ft_strdup("."));
 	listing->should_print_dir_names = ft_lstsize(*arguments) > 1;
-	listing->should_handle_screwups = 1;
+	listing->handle_singles = 1;
 }
 
 static void		push_arguments(int i, int ac, char **av, t_list **arguments)
@@ -65,9 +59,10 @@ int				main(int ac, char **av)
 	int			i;
 	t_list		*arguments;
 	t_listing	listing;
+	t_bonus		bonus;
 	char		*s;
 
-	setup(&arguments, &listing);
+	setup(&arguments, &listing, &bonus);
 	i = 1;
 	while (i < ac && av[i][0] != '\0' && av[i][0] == '-' && av[i][1] != '\0'
 		&& !ft_strequ(av[i], "--"))
@@ -75,7 +70,7 @@ int				main(int ac, char **av)
 		s = av[i] + 1;
 		while (*s)
 		{
-			handle_options(*s, &listing);
+			handle_options(*s, &listing, &bonus);
 			s++;
 		}
 		i++;
@@ -84,6 +79,6 @@ int				main(int ac, char **av)
 		i++;
 	push_arguments(i, ac, av, &arguments);
 	prep_arguments_and_listing(&arguments, &listing);
-	start_listing(&arguments, &listing);
+	start_listing(&arguments, &listing, &bonus);
 	return (0);
 }

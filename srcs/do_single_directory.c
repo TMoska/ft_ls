@@ -6,20 +6,21 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/19 02:59:42 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 05:38:19 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static	void	recurse(t_list **arguments, t_listing *listing)
+static	void	recurse(t_list **arguments, t_listing *listing, t_bonus *bonus)
 {
 	int			recursive_loop;
 
 	listing->should_print_dir_names = 1;
 	recursive_loop = listing->recursing;
 	listing->recursing = 1;
-	start_listing(arguments, listing);
+	listing->recursive_depth++;
+	start_listing(arguments, listing, bonus);
 	listing->recursing = recursive_loop;
 }
 
@@ -43,7 +44,8 @@ static t_bool	link_to_self(t_file *file)
 	return (0);
 }
 
-static void		do_recursiveness(t_list *dir_files, t_listing *listing)
+static void		do_recursiveness(t_list *dir_files, t_listing *listing, \
+	t_bonus *bonus)
 {
 	t_list		*folders;
 	t_file		*file;
@@ -60,11 +62,11 @@ static void		do_recursiveness(t_list *dir_files, t_listing *listing)
 		dir_files = dir_files->next;
 	}
 	if (folders)
-		recurse(&folders, listing);
+		recurse(&folders, listing, bonus);
 }
 
 void			do_single_directory(char *folder_name, t_list *directory,
-								t_bool should_print_folder, t_listing *listing)
+	t_bool should_print_folder, t_listing *listing, t_bonus *bonus)
 {
 	t_list		*dir_files;
 	t_file		*file;
@@ -80,8 +82,8 @@ void			do_single_directory(char *folder_name, t_list *directory,
 	{
 		sort_files(&dir_files, listing);
 		if (should_print_folder)
-			print_files(dir_files, listing);
+			print_files(dir_files, listing, bonus);
 		if (listing->recursive)
-			do_recursiveness(dir_files, listing);
+			do_recursiveness(dir_files, listing, bonus);
 	}
 }

@@ -6,14 +6,14 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 01:22:28 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/19 06:52:59 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 05:38:16 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 void	print_file_list(t_list *file_list, t_list **arguments, \
-		t_listing *listing)
+		t_listing *listing, t_bonus *bonus)
 {
 	t_list *files;
 
@@ -25,22 +25,24 @@ void	print_file_list(t_list *file_list, t_list **arguments, \
 		ft_lst_remove_if(arguments, file_list->content, &ft_ptrequ);
 		file_list = file_list->next;
 	}
-	listing->handle_singles = 1;
+	listing->handling_singles = 1;
 	sort_files(&files, listing);
-	print_files(files, listing);
-	listing->handle_singles = 0;
+	print_files(files, listing, bonus);
+	listing->handling_singles = 0;
 }
 
-void	print_files_and_directories(t_list **arguments,
-		t_list **directories, t_list **file_list, t_listing *listing)
+void	print_files_and_directories(t_list **arguments, t_list **directories, \
+	t_list **file_list, t_listing *listing, t_bonus *bonus)
 {
-	if (*file_list && listing->should_handle_screwups)
+	if (bonus->d)
+		return ;
+	if (*file_list && listing->handle_singles)
 	{
-		print_file_list(*file_list, arguments, listing);
+		print_file_list(*file_list, arguments, listing, bonus);
 		ft_lstdel(file_list, NULL);
 		listing->should_print_dir_names = 1;
 	}
-	listing->should_handle_screwups = 0;
-	if (directories && !listing->dir_as_files)
-		do_directories(*arguments, *directories, listing);
+	listing->handle_singles = 0;
+	if (directories)
+		do_directories(*arguments, *directories, listing, bonus);
 }

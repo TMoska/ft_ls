@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 21:31:46 by moska             #+#    #+#             */
-/*   Updated: 2017/01/19 02:59:57 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 05:26:02 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ static char	list_attributes(t_file *file)
 			|| (file->is_symlink
 				&& listxattr(file->full_name, NULL, 0, XATTR_NOFOLLOW) > 0))
 		return ('@');
+	else if ((!file->is_symlink \
+		&& acl_get_file(file->full_name, ACL_TYPE_EXTENDED)) ||
+		(file->is_symlink && \
+		acl_get_link_np(file->full_name, ACL_TYPE_EXTENDED)))
+		return ('+');
 	return (' ');
 }
 
