@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_single_directory.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 05:58:30 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 16:25:37 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void		do_recursiveness(t_list *dir_files, t_listing *listing, \
 				&& !ft_strequ(file->basename, ".")
 				&& !ft_strequ(file->basename, "..")
 				&& !link_to_self(file))
-			ft_lst_push_front(&folders, file->full_name);
+			ft_lstadd(&folders, ft_lstnew(file->full_name, ft_strlen(file->full_name) + 1));
 		dir_files = dir_files->next;
 	}
 	if (folders)
@@ -77,7 +77,7 @@ void			do_single_directory(char *folder_name, t_list *directory\
 	while (directory && (file = setup_file(folder_name,\
 					ft_strdup((char*)directory->content), listing)))
 	{
-		ft_lst_push_front(&dir_files, file);
+		ft_lstadd(&dir_files, ft_lstnew(file, sizeof(*file)));
 		directory = directory->next;
 	}
 	if (dir_files)

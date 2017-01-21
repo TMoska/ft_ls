@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_files_and_directories.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 01:22:28 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 05:58:09 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 16:26:41 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	print_file_list(t_list *file_list, t_list **arguments, \
 	files = NULL;
 	while (file_list)
 	{
-		ft_lst_push_front(&files, setup_file("./", (char*)file_list->content,\
-					listing));
+		ft_lstadd(&files, ft_lstnew(setup_file("./", (char*)file_list->content,\
+					listing), sizeof(t_file)));
 		ft_lst_remove_if(arguments, file_list->content, &ft_ptrequ);
 		file_list = file_list->next;
 	}

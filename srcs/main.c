@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 22:09:21 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 16:12:54 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/21 16:24:52 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		prep_arguments_and_listing(t_list **arguments,\
 	t_listing *listing)
 {
 	if (!(*arguments))
-		ft_lst_push_front(arguments, ft_strdup("."));
+		ft_lstadd(arguments, ft_lstnew(".", 2));
 	listing->should_print_dir_names = ft_lstsize(*arguments) > 1;
 	listing->handle_singles = 1;
 }
@@ -49,7 +49,7 @@ static void		push_arguments(int i, int ac, char **av, t_list **arguments)
 	while (i < ac)
 	{
 		exit_if_arg_empty(av[i]);
-		ft_lst_push_front(arguments, av[i]);
+		ft_lstadd(arguments, ft_lstnew(av[i], ft_strlen(av[i]) + 1));
 		i++;
 	}
 }

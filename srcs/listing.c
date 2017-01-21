@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   listing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:59:22 by moska             #+#    #+#             */
-/*   Updated: 2017/01/21 06:28:57 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 16:23:55 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void			read_directory(char *folder_name, t_list **directories,
 	if ((opened = opendir(folder_name)))
 	{
 		while ((read = readdir(opened)))
-			ft_lst_push_front(&files, ft_strdup(read->d_name));
+			ft_lstadd(&files, ft_lstnew(read->d_name, ft_strlen(read->d_name) + 1));
 		ft_lst_push_back(directories, files);
 		closedir(opened);
 	}
@@ -53,7 +53,7 @@ static void			read_directory(char *folder_name, t_list **directories,
 		if (listing->recursive_depth)
 			ft_lst_push_back(directories, NULL);
 		if (errno == ENOTDIR && is_a_valid_file(folder_name))
-			ft_lst_push_front(file_list, folder_name);
+			ft_lstadd(file_list, ft_lstnew(folder_name, ft_strlen(folder_name) + 1));
 		else
 			no_such_file_or_dir(folder_name, listing, directories);
 	}
