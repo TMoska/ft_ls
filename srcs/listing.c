@@ -23,7 +23,8 @@ static int			is_a_valid_file(char *folder_name)
 	ret = 0;
 	path = ft_get_path(folder_name);
 	short_name = ft_basename(folder_name);
-	dir = opendir(path);
+	if (!(dir = opendir(path)))
+		return (0);
 	while ((read = readdir(dir)))
 		if (ft_strequ(short_name, read->d_name))
 			ret = 1;
