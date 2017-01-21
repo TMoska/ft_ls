@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 20:18:13 by moska             #+#    #+#             */
-/*   Updated: 2017/01/19 06:38:50 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 06:02:10 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,17 @@ static int	sort_by_time(void *one, void *two)
 		return (sort_by_basename(one, two));
 	else
 		return (diff);
+}
+
+void		reverse_lists_if_needed(t_list **arggs, t_list **file_list, \
+	t_list **dir_list, t_listing *listing)
+{
+	if (listing->sort_reverse)
+	{
+		ft_lstrev(arggs);
+		ft_lstrev(file_list);
+		ft_lstrev(dir_list);
+	}
 }
 
 void		sort_files(t_list **dir_files, t_listing *listing)

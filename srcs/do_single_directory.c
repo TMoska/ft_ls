@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 05:38:19 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 05:58:30 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,14 @@ static void		do_recursiveness(t_list *dir_files, t_listing *listing, \
 		recurse(&folders, listing, bonus);
 }
 
-void			do_single_directory(char *folder_name, t_list *directory,
-	t_bool should_print_folder, t_listing *listing, t_bonus *bonus)
+void			do_single_directory(char *folder_name, t_list *directory\
+	, t_listing *listing, t_bonus *bonus)
 {
 	t_list		*dir_files;
 	t_file		*file;
+	t_bool		should_print_folder;
 
+	should_print_folder = do_print_folder(folder_name, listing);
 	dir_files = NULL;
 	while (directory && (file = setup_file(folder_name,\
 					ft_strdup((char*)directory->content), listing)))

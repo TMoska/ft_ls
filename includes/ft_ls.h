@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 17:31:34 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 05:38:07 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 06:08:28 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void				do_directories(t_list *arg, t_list *directory,\
 		t_listing *listing, t_bonus *bonus);
 void				print_folder(char *folder_name, t_listing *listing);
 void				do_single_directory(char *folder_name, t_list *directory,\
-		t_bool should_print_folder, t_listing *listing, t_bonus *bonus);
+		t_listing *listing, t_bonus *bonus);
 t_file				*setup_file(char *folder_name, char *directory,\
 		t_listing *listing);
 void				sort_files(t_list **dir_files, t_listing *listing);
@@ -102,8 +102,7 @@ t_stat				*lstat_or_stat(t_file *file);
 int					ft_count_umax_digits(uintmax_t number);
 void				print_file_permissions(t_file *file);
 void				print_files_and_directories(t_list **arguments, \
-		t_list **directories, t_list **file_list, t_listing *listing, \
-		t_bonus *bonus);
+	t_list **file_list, t_listing *listing, t_bonus *bonus);
 void				replace_group(t_strlens *strlens, t_file *file);
 void				replace_owner(t_strlens *strlens, t_file *file);
 void				replace_if_greater_int(int *replace_if, int new_value);
@@ -115,4 +114,6 @@ void				print_file_list(t_list *file_list, t_list **arguments,\
 		t_listing *listing, t_bonus *bonus);
 int					do_print_folder(char *folder_name, t_listing *listing);
 int					handle_bonus(char c, t_listing *listing, t_bonus *bonus);
+void				reverse_lists_if_needed(t_list **arggs, \
+	t_list **file_list, t_list **dir_list, t_listing *listing);
 #endif

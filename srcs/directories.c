@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 19:05:45 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 05:37:58 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 05:55:20 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ int			do_print_folder(char *folder_name, t_listing *listing)
 	return (1);
 }
 
-static void	check_permissions(char *folder_name, t_bool should_print_folder,\
-	t_list *directory, t_listing *listing, t_bonus *bonus)
+static void	check_permissions(char *folder_name, t_list *directory, \
+	t_listing *listing, t_bonus *bonus)
 {
 	DIR				*opened;
+	t_bool			should_print_folder;
 
+	should_print_folder = do_print_folder(folder_name, listing);
 	if (!(opened = opendir(folder_name)))
 	{
 		if (!(errno == ENOENT || errno == ENOTDIR))
@@ -50,8 +52,8 @@ static void	check_permissions(char *folder_name, t_bool should_print_folder,\
 	{
 		closedir(opened);
 		if ((t_list*)(directory->content))
-			do_single_directory(folder_name, (t_list*)(directory->content),\
-				should_print_folder, listing, bonus);
+			do_single_directory(folder_name, (t_list*)(directory->content), \
+				listing, bonus);
 	}
 }
 
@@ -71,8 +73,7 @@ void		do_directories(t_list *arg, t_list *directory, t_listing *listing\
 		should_print_folder = do_print_folder(folder_name, listing);
 		if (listing->should_print_dir_names && should_print_folder)
 			print_folder(folder_name, listing);
-		check_permissions(folder_name, should_print_folder, directory,\
-			listing, bonus);
+		check_permissions(folder_name, directory, listing, bonus);
 		arg = arg->next;
 		directory = directory->next;
 	}

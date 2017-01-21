@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:59:22 by moska             #+#    #+#             */
-/*   Updated: 2017/01/21 05:37:55 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/21 06:28:57 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,10 @@ void				start_listing(t_list **arggs, t_listing *listing, \
 			read_directory(folder_name, &dir_list, &file_list, listing);
 		arg = arg->next;
 	}
-	if (listing->sort_reverse)
-	{
-		ft_lstrev(arggs);
-		ft_lstrev(&file_list);
-		ft_lstrev(&dir_list);
-	}
+	reverse_lists_if_needed(arggs, &file_list, &dir_list, listing);
 	if (bonus->d)
 		print_file_list(*arggs, arggs, listing, bonus);
-	print_files_and_directories(arggs, &dir_list, &file_list, listing, bonus);
+	print_files_and_directories(arggs, &file_list, listing, bonus);
+	if (dir_list)
+		do_directories(*arggs, dir_list, listing, bonus);
 }
