@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 16:33:19 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 16:27:23 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/22 12:31:00 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void				ft_lstrmif(t_list **begin_list,
 					void *data_ref, int (*cmp)());
 t_list				*ft_lst_create_elem(void *data);
 void				ft_lst_removenode(t_list **begin_list, t_list *removable);
-void				ft_lst_push_back(t_list **begin_list, void *data);
 void				ft_lst_remove_if(t_list **begin_list, void *content,\
 		int (*cmp)());
 int					ft_ptrequ(const void *one, const void *two);
@@ -125,4 +124,5 @@ void				ft_put_justified_nbr(int nb, size_t tot_size,\
 void				ft_putchar_if(int condition, char pos, char neg);
 int					ft_lst_in_list(t_list *begin_list, void *data,\
 		int (*cmp)());
+int   ft_lstadd_back(t_list **alst, t_list *new);
 #endif

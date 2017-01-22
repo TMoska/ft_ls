@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:59:22 by moska             #+#    #+#             */
-/*   Updated: 2017/01/21 16:23:55 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/22 12:34:00 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ static void			read_directory(char *folder_name, t_list **directories,
 	{
 		while ((read = readdir(opened)))
 			ft_lstadd(&files, ft_lstnew(read->d_name, ft_strlen(read->d_name) + 1));
-		ft_lst_push_back(directories, files);
+		ft_lstadd_back(directories, ft_lstnew(files, sizeof(*files)));
 		closedir(opened);
 	}
 	else
 	{
 		if (listing->recursive_depth)
-			ft_lst_push_back(directories, NULL);
+			ft_lstadd_back(directories, ft_lstnew(NULL, sizeof(NULL)));
 		if (errno == ENOTDIR && is_a_valid_file(folder_name))
 			ft_lstadd(file_list, ft_lstnew(folder_name, ft_strlen(folder_name) + 1));
 		else
@@ -104,7 +104,7 @@ void				start_listing(t_list **arggs, t_listing *listing, \
 		folder_name = (char*)arg->content;
 		if (listing->handle_singles \
 				&& link_is_a_file(folder_name, arggs, arg, listing))
-			ft_lst_push_back(&file_list, folder_name);
+			ft_lstadd_back(&file_list, ft_lstnew(folder_name, ft_strlen(folder_name) + 1));
 		else
 			read_directory(folder_name, &dir_list, &file_list, listing);
 		arg = arg->next;

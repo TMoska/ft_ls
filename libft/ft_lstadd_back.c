@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_removenode.c                                :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/12 18:11:17 by moska             #+#    #+#             */
-/*   Updated: 2017/01/22 11:45:42 by moska            ###   ########.fr       */
+/*   Created: 2017/01/22 12:35:39 by moska             #+#    #+#             */
+/*   Updated: 2017/01/22 12:36:05 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-void		ft_lst_removenode(t_list **begin_list, t_list *removable)
+int   ft_lstadd_back(t_list **alst, t_list *new)
 {
-	t_list	*old;
+  t_list  *tmp;
 
-	if (begin_list && *begin_list && removable)
-	{
-		if (*begin_list == removable)
-		{
-			old = *begin_list;
-			*begin_list = (*begin_list)->next;
-			// if (old->content)
-			// 	free(old->content);
-			free(old);
-		}
-		else
-			ft_lst_removenode(&((*begin_list)->next), removable);
-	}
+  tmp = *alst;
+  if (!new)
+    return (0);
+  if (*alst)
+  {
+    while (tmp->next)
+      tmp = tmp->next;
+    tmp->next = new;
+  }
+  else
+    ft_lstadd(alst, new);
+  return (1);
 }

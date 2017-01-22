@@ -6,7 +6,7 @@
 #    By: moska <moska@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/22 15:11:22 by tmoska            #+#    #+#              #
-#    Updated: 2017/01/21 16:27:17 by moska            ###   ########.fr        #
+#    Updated: 2017/01/22 12:36:18 by moska            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,9 @@ SOURCES = 	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigi
 			ft_strncat.c ft_strncmp.c ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c \
 			ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c ft_toupper.c \
 			ft_lstrev.c ft_lstsort.c ft_lstsize.c ft_lstforeach.c ft_lstmerge.c ft_lstrmif.c \
-			ft_lst_create_elem.c ft_lst_removenode.c ft_lst_push_back.c ft_get_path.c ft_basename.c ft_ptrequ.c \
+			ft_lst_create_elem.c ft_lst_removenode.c ft_get_path.c ft_basename.c ft_ptrequ.c \
 			ft_lst_remove_if.c ft_count_umax_digits.c ft_itoa_ularge.c ft_put_justified_str.c ft_put_justified_nbr.c \
-			ft_putchar_if.c ft_lst_in_list.c
+			ft_putchar_if.c ft_lst_in_list.c ft_lstadd_back.c
 
 OBJECTS = $(SOURCES:.c=.o)
 

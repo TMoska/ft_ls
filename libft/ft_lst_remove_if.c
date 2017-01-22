@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 00:38:15 by moska             #+#    #+#             */
-/*   Updated: 2017/01/22 09:16:35 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/22 11:45:37 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_lst_remove_if(t_list **begin_list, void *content, int (*cmp)())
 			match = *begin_list;
 			*begin_list = (*begin_list)->next;
 			// if (match->content)
-				// free(match->content);
+			// 	free(match->content);
 			free(match);
 			ft_lst_remove_if(begin_list, content, cmp);
 		}
