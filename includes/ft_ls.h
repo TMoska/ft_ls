@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 17:31:34 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 06:08:28 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/25 20:48:43 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,12 @@ typedef struct		s_listing
 	t_bool			printed_something_already;
 	t_bool			handle_singles;
 	t_bool			handling_singles;
-	int				recursive_depth;
-}					t_listing;
-
-typedef	struct		s_bonus
-{
 	t_bool			o;
 	t_bool			g;
 	t_bool			d;
 	t_bool			one;
-}					t_bonus;
+	int				recursive_depth;
+}					t_listing;
 
 typedef struct		s_file
 {
@@ -79,21 +75,19 @@ typedef	struct		s_strlens
 	int				file_size;
 }					t_strlens;
 
-void				start_listing(t_list **arguments, t_listing *listing, \
-		t_bonus *bonus);
+void				start_listing(t_list **arguments, t_listing *listing);
 void				no_such_file_or_dir(char *folder_name, t_listing *listing, \
 		t_list **directories);
 void				exit_if_arg_empty(char *arg);
 void				do_directories(t_list *arg, t_list *directory,\
-		t_listing *listing, t_bonus *bonus);
+		t_listing *listing);
 void				print_folder(char *folder_name, t_listing *listing);
 void				do_single_directory(char *folder_name, t_list *directory,\
-		t_listing *listing, t_bonus *bonus);
+		t_listing *listing);
 t_file				*setup_file(char *folder_name, char *directory,\
 		t_listing *listing);
 void				sort_files(t_list **dir_files, t_listing *listing);
-void				print_files(t_list *dir_files, t_listing *listing\
-		, t_bonus *bonus);
+void				print_files(t_list *dir_files, t_listing *listing);
 t_bool				should_print_entry(t_file *file, t_listing *listing);
 void				print_list(t_list *begin_list);
 void				formatting(t_strlens *strlens, t_list *dir_files,\
@@ -102,18 +96,18 @@ t_stat				*lstat_or_stat(t_file *file);
 int					ft_count_umax_digits(uintmax_t number);
 void				print_file_permissions(t_file *file);
 void				print_files_and_directories(t_list **arguments, \
-	t_list **file_list, t_listing *listing, t_bonus *bonus);
+	t_list **file_list, t_listing *listing);
 void				replace_group(t_strlens *strlens, t_file *file);
 void				replace_owner(t_strlens *strlens, t_file *file);
 void				replace_if_greater_int(int *replace_if, int new_value);
 void				replace_if_greater(uintmax_t *old, uintmax_t new);
 void				print_single_file(t_file *file, t_listing *listing,\
-		t_strlens *strlens, t_bonus *bonus);
+		t_strlens *strlens);
 void				illegal_option(char c);
 void				print_file_list(t_list *file_list, t_list **arguments,\
-		t_listing *listing, t_bonus *bonus);
+		t_listing *listing);
 int					do_print_folder(char *folder_name, t_listing *listing);
-int					handle_bonus(char c, t_listing *listing, t_bonus *bonus);
+int					handle_bonus(char c, t_listing *listing);
 void				reverse_lists_if_needed(t_list **arggs, \
 	t_list **file_list, t_list **dir_list, t_listing *listing);
 #endif

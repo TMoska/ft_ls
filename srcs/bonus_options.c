@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   bonus_options.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/21 05:27:05 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 05:38:10 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/25 20:39:14 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int				handle_bonus(char c, t_listing *listing, t_bonus *bonus)
+int				handle_bonus(char c, t_listing *listing)
 {
 	if (c == 'd')
-		bonus->d = 1;
+		listing->d = 1;
 	else if (c == '1')
 	{
-		bonus->one = 1;
+		listing->one = 1;
 		listing->long_format = 0;
 	}
 	else if (c == 'o')
 	{
-		bonus->o = 1;
+		listing->o = 1;
 		listing->long_format = 1;
 	}
 	else if (c == 'g')
 	{
-		bonus->g = 1;
+		listing->g = 1;
 		listing->long_format = 1;
 	}
 	if (c == 'd' || c == '1' || c == 'o' || c == 'g')

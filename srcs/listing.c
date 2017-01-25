@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:59:22 by moska             #+#    #+#             */
-/*   Updated: 2017/01/22 12:34:00 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/25 20:39:02 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ static void			setup(t_list **directories, t_list **file_list \
 	*arg = *arguments;
 }
 
-void				start_listing(t_list **arggs, t_listing *listing, \
-	t_bonus *bonus)
+void				start_listing(t_list **arggs, t_listing *listing)
 {
 	t_list			*dir_list;
 	t_list			*file_list;
@@ -110,9 +109,9 @@ void				start_listing(t_list **arggs, t_listing *listing, \
 		arg = arg->next;
 	}
 	reverse_lists_if_needed(arggs, &file_list, &dir_list, listing);
-	if (bonus->d)
-		print_file_list(*arggs, arggs, listing, bonus);
-	print_files_and_directories(arggs, &file_list, listing, bonus);
+	if (listing->d)
+		print_file_list(*arggs, arggs, listing);
+	print_files_and_directories(arggs, &file_list, listing);
 	if (dir_list)
-		do_directories(*arggs, dir_list, listing, bonus);
+		do_directories(*arggs, dir_list, listing);
 }

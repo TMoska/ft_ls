@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 20:16:22 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 05:21:47 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/25 20:46:20 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	print_total_block_size(t_list *dir_files)
 }
 
 static void	print_all(t_list *dir_files, t_strlens *strlens,\
-	t_listing *listing, t_bonus *bonus)
+	t_listing *listing)
 {
 	t_file	*file;
 	t_bool	first;
@@ -61,18 +61,18 @@ static void	print_all(t_list *dir_files, t_strlens *strlens,\
 		{
 			if (first && listing->long_format && !listing->handling_singles)
 				print_total_block_size(dir_files);
-			print_single_file(file, listing, strlens, bonus);
+			print_single_file(file, listing, strlens);
 			first = 0;
 		}
 		dir_files = dir_files->next;
 	}
 }
 
-void		print_files(t_list *dir_files, t_listing *listing, t_bonus *bonus)
+void		print_files(t_list *dir_files, t_listing *listing)
 {
 	t_strlens strlens;
 
 	if (listing->long_format)
 		formatting(&strlens, dir_files, listing);
-	print_all(dir_files, &strlens, listing, bonus);
+	print_all(dir_files, &strlens, listing);
 }

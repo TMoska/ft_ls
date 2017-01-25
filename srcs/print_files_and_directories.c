@@ -6,14 +6,14 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 01:22:28 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/22 11:29:41 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/25 20:46:02 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 void	print_file_list(t_list *file_list, t_list **arguments, \
-		t_listing *listing, t_bonus *bonus)
+		t_listing *listing)
 {
 	t_list *files;
 
@@ -27,18 +27,18 @@ void	print_file_list(t_list *file_list, t_list **arguments, \
 	}
 	listing->handling_singles = 1;
 	sort_files(&files, listing);
-	print_files(files, listing, bonus);
+	print_files(files, listing);
 	listing->handling_singles = 0;
 }
 
 void	print_files_and_directories(t_list **arguments, \
-	t_list **file_list, t_listing *listing, t_bonus *bonus)
+	t_list **file_list, t_listing *listing)
 {
-	if (bonus->d)
+	if (listing->d)
 		return ;
 	if (*file_list && listing->handle_singles)
 	{
-		print_file_list(*file_list, arguments, listing, bonus);
+		print_file_list(*file_list, arguments, listing);
 		ft_lstdel(file_list, NULL);
 		listing->should_print_dir_names = 1;
 	}

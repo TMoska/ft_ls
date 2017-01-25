@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 01:50:30 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/25 20:36:40 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/25 20:45:39 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,21 @@ static void	print_size(t_file *file, t_strlens *strlens)
 				(strlens->major ? 4 : 2), ' ', 1);
 }
 
-static void	print_options(t_file *file, t_strlens *strlens, t_bonus *bonus)
+static void	print_options(t_file *file, t_strlens *strlens, t_listing *listing)
 {
 	ft_putchar(file->file_type);
 	print_file_permissions(file);
 	ft_put_justified_nbr(lstat_or_stat(file)->st_nlink,\
 			strlens->nlink + 1, ' ', 1);
 	ft_putstr(" ");
-	if (!bonus->g && !bonus->o)
+	if (!listing->g && !listing->o)
 	{
 		ft_put_justified_str(file->owner, strlens->owner + 2, ' ', 0);
 		ft_put_justified_str(file->group, strlens->group, ' ', 0);
 	}
-	else if (!bonus->g && bonus->o)
+	else if (!listing->g && listing->o)
 		ft_put_justified_str(file->owner, strlens->owner, ' ', 0);
-	else if (bonus->g && !bonus->o)
+	else if (listing->g && !listing->o)
 		ft_put_justified_str(file->group, strlens->group, ' ', 0);
 	print_size(file, strlens);
 	ft_putstr(" ");
@@ -78,11 +78,11 @@ static void	print_options(t_file *file, t_strlens *strlens, t_bonus *bonus)
 }
 
 void		print_single_file(t_file *file, t_listing *listing, \
-	t_strlens *strlens, t_bonus *bonus)
+	t_strlens *strlens)
 {
 	if (listing->long_format)
 	{
-		print_options(file, strlens, bonus);
+		print_options(file, strlens, listing);
 		ft_putchar(' ');
 		ft_putstr(file->basename);
 		print_symlink_arrow_link(file);

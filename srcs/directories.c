@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 19:05:45 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 14:50:46 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/25 20:44:02 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			do_print_folder(char *folder_name, t_listing *listing)
 }
 
 static void	check_permissions(char *folder_name, t_list *directory, \
-	t_listing *listing, t_bonus *bonus)
+	t_listing *listing)
 {
 	DIR				*opened;
 
@@ -51,12 +51,11 @@ static void	check_permissions(char *folder_name, t_list *directory, \
 		closedir(opened);
 		if ((t_list*)(directory->content))
 			do_single_directory(folder_name, (t_list*)(directory->content), \
-				listing, bonus);
+				listing);
 	}
 }
 
-void		do_directories(t_list *arg, t_list *directory, t_listing *listing\
-	, t_bonus *bonus)
+void		do_directories(t_list *arg, t_list *directory, t_listing *listing)
 {
 	char			*folder_name;
 	t_bool			should_print_folder;
@@ -67,7 +66,7 @@ void		do_directories(t_list *arg, t_list *directory, t_listing *listing\
 		should_print_folder = do_print_folder(folder_name, listing);
 		if (listing->should_print_dir_names && should_print_folder)
 			print_folder(folder_name, listing);
-		check_permissions(folder_name, directory, listing, bonus);
+		check_permissions(folder_name, directory, listing);
 		arg = arg->next;
 		directory = directory->next;
 	}
