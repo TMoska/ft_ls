@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options_printing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 01:50:30 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/21 05:37:50 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/25 20:36:40 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	print_time(t_file *file)
 	str = ft_strdup(ctime(&stat_time));
 	write(1, str + 4, 7);
 	diff = time(NULL) - stat_time;
-	if (stat_time >= 253402300740)
+	if (stat_time >= 253402297140)
 		write(1, str + 23, 6);
 	else if (diff > SIX_MONTHS_SECONDS || diff < 0)
 		write(1, str + 19, 5);
