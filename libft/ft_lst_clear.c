@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_lst_clear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 10:33:10 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/30 17:32:34 by moska            ###   ########.fr       */
+/*   Created: 2017/01/25 23:23:40 by moska             #+#    #+#             */
+/*   Updated: 2017/01/30 17:31:03 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+void    ft_lst_clear(void **list_content, size_t *content_size)
 {
-	write(fd, &c, 1);
+  if (list_content)
+    ft_memdel((void**)&(*list_content));
+  (void)content_size;
 }

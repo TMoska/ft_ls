@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 23:24:14 by moska             #+#    #+#             */
-/*   Updated: 2017/01/14 16:49:12 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/30 17:32:39 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ char		*ft_get_path(char *folder_name)
 	if (tmp)
 		*tmp = '\0';
 	else
+	{
+		free(start);
 		return (ft_strdup("."));
+	}
 	return (start);
 }

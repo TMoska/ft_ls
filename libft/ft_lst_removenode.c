@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/12 18:11:17 by moska             #+#    #+#             */
-/*   Updated: 2017/01/22 11:45:42 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/26 17:55:50 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,15 @@
 
 void		ft_lst_removenode(t_list **begin_list, t_list *removable)
 {
-	t_list	*old;
+	t_list	*next;
 
 	if (begin_list && *begin_list && removable)
 	{
 		if (*begin_list == removable)
 		{
-			old = *begin_list;
-			*begin_list = (*begin_list)->next;
-			// if (old->content)
-			// 	free(old->content);
-			free(old);
+			next = (*begin_list)->next;
+			ft_lstdelone(begin_list, &ft_lst_clear);
+			*begin_list = next;
 		}
 		else
 			ft_lst_removenode(&((*begin_list)->next), removable);
