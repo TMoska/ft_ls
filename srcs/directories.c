@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 19:05:45 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/25 20:44:02 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/27 00:34:26 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ static void	check_permissions(char *folder_name, t_list *directory, \
 	}
 }
 
-void		do_directories(t_list *arg, t_list *directory, t_listing *listing)
+void		do_directories(t_list *arggs, t_list *directory, t_listing *listing)
 {
 	char			*folder_name;
 	t_bool			should_print_folder;
 
-	while (arg)
+	while (arggs)
 	{
-		folder_name = (char *)arg->content;
+		folder_name = (char *)arggs->content;
 		should_print_folder = do_print_folder(folder_name, listing);
 		if (listing->should_print_dir_names && should_print_folder)
 			print_folder(folder_name, listing);
 		check_permissions(folder_name, directory, listing);
-		arg = arg->next;
+		arggs = arggs->next;
 		directory = directory->next;
 	}
 }

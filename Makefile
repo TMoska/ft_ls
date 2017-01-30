@@ -3,14 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+         #
+#    By: moska <moska@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/09 17:36:12 by tmoska            #+#    #+#              #
-#    Updated: 2017/01/21 05:27:13 by tmoska           ###   ########.fr        #
+#    Updated: 2017/01/30 17:37:14 by moska            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 GCC 		= gcc
+# GCC 		= clang -fsanitize=memory
 NAME 		= ft_ls
 FLAGS 		= -Wall -Werror -Wextra -g
 
@@ -25,7 +26,7 @@ SRC_DIR 	= srcs
 SRC_FILES 	= main.c listing.c failures.c directories.c printing.c \
 	  		  do_single_directory.c dir_files.c sorting.c formatting.c \
 	  		  print_file_permissions.c print_files_and_directories.c \
-	  		  replacements.c options_printing.c bonus_options.c
+	  		  replacements.c options_printing.c bonus_options.c utils.c
 
 SOURCES		= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

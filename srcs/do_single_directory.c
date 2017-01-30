@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/25 20:44:27 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/29 08:55:20 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,16 @@ static t_bool	link_to_self(t_file *file)
 		lu = readlink(file->full_name, link, BUFF);
 		if (lu >= BUFF)
 		{
+			free(link);
 			ft_putendl("Link filename too long");
 			exit(1);
 		}
 		link[lu] = '\0';
 		if (ft_strequ(link, "./") || ft_strequ(link, "."))
+		{
+			free(link);
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -61,7 +65,10 @@ static void		do_recursiveness(t_list *dir_files, t_listing *listing)
 		dir_files = dir_files->next;
 	}
 	if (folders)
+	{
 		recurse(&folders, listing);
+		ft_lstdel(&folders, &ft_lst_clear);
+	}
 }
 
 void			do_single_directory(char *folder_name, t_list *directory\
@@ -73,10 +80,11 @@ void			do_single_directory(char *folder_name, t_list *directory\
 
 	should_print_folder = do_print_folder(folder_name, listing);
 	dir_files = NULL;
-	while (directory && (file = setup_file(folder_name,\
-					ft_strdup((char*)directory->content), listing)))
+	while (directory && (file = setup_file(folder_name, \
+		(char*)directory->content, listing)))
 	{
 		ft_lstadd(&dir_files, ft_lstnew(file, sizeof(*file)));
+		del_file(file);
 		directory = directory->next;
 	}
 	if (dir_files)
@@ -86,5 +94,6 @@ void			do_single_directory(char *folder_name, t_list *directory\
 			print_files(dir_files, listing);
 		if (listing->recursive)
 			do_recursiveness(dir_files, listing);
+		ft_lstdel(&dir_files, &del_files_n_fullnames); // <<<<<<<<<<<
 	}
 }

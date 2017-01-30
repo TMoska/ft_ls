@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 22:09:21 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/25 20:45:14 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/30 17:35:59 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,7 @@ int				main(int ac, char **av)
 	push_arguments(i, ac, av, &arguments);
 	prep_arguments_and_listing(&arguments, &listing);
 	start_listing(&arguments, &listing);
+	if (arguments)
+		ft_lstdel(&arguments, &ft_lst_clear);
 	return (0);
 }

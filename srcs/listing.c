@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/10 16:59:22 by moska             #+#    #+#             */
-/*   Updated: 2017/01/25 20:39:02 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/30 17:35:44 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,15 @@ static int			is_a_valid_file(char *folder_name)
 	path = ft_get_path(folder_name);
 	short_name = ft_basename(folder_name);
 	if (!(dir = opendir(path)))
+	{
+		free(path);
 		return (0);
+	}
 	while ((read = readdir(dir)))
 		if (ft_strequ(short_name, read->d_name))
 			ret = 1;
-	free(path);
+	if (path)
+		free(path);
 	closedir(dir);
 	return (ret);
 }
@@ -46,6 +50,7 @@ static void			read_directory(char *folder_name, t_list **directories,
 		while ((read = readdir(opened)))
 			ft_lstadd(&files, ft_lstnew(read->d_name, ft_strlen(read->d_name) + 1));
 		ft_lstadd_back(directories, ft_lstnew(files, sizeof(*files)));
+		ft_memdel((void**)&files);
 		closedir(opened);
 	}
 	else
@@ -100,18 +105,24 @@ void				start_listing(t_list **arggs, t_listing *listing)
 	setup(&dir_list, &file_list, arggs, &arg);
 	while (arg)
 	{
-		folder_name = (char*)arg->content;
+		folder_name = ft_strdup((char*)arg->content);
 		if (listing->handle_singles \
 				&& link_is_a_file(folder_name, arggs, arg, listing))
 			ft_lstadd_back(&file_list, ft_lstnew(folder_name, ft_strlen(folder_name) + 1));
 		else
 			read_directory(folder_name, &dir_list, &file_list, listing);
 		arg = arg->next;
+		free(folder_name);
 	}
 	reverse_lists_if_needed(arggs, &file_list, &dir_list, listing);
 	if (listing->d)
 		print_file_list(*arggs, arggs, listing);
 	print_files_and_directories(arggs, &file_list, listing);
 	if (dir_list)
+	{
 		do_directories(*arggs, dir_list, listing);
+		deep_del_files(&dir_list);
+	}
+	if (file_list)
+		ft_lstdel(&file_list, &ft_lst_clear);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dir_files.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:40:00 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/19 03:48:59 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/01/30 17:36:57 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	*get_full_name(char *folder_name, char *basename)
 	{
 		folder_name = ft_strjoin(folder_name, "/");
 		ret = ft_strjoin(folder_name, basename);
+		free(folder_name);
 	}
 	return (ret);
 }
@@ -51,12 +52,12 @@ t_file	*setup_file(char *folder_name, char *file_name, t_listing *listing)
 
 	file = malloc(sizeof(t_file));
 	ft_bzero(file, sizeof(t_file));
-	file->basename = file_name;
+	file->basename = ft_strdup(file_name);
 	file->full_name = get_full_name(folder_name, file->basename);
 	if ((listing->recursive || listing->long_format ||
 		listing->sort_time_modified) && setup_stats(file))
 	{
-		free(file);
+		del_file(file);
 		return (NULL);
 	}
 	return (file);

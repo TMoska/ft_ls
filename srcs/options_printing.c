@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 01:50:30 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/25 20:45:39 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/29 08:44:51 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 static void	print_symlink_arrow_link(t_file *file)
 {
-	char buff[BUFF];
+	char *buff;
 
+	buff = ft_memalloc(BUFF);
 	if (file->is_symlink)
 	{
 		ft_putstr(" -> ");
 		write(1, buff, readlink(file->full_name, buff, BUFF));
 	}
+	free(buff);
 }
 
 static void	print_time(t_file *file)
@@ -30,7 +32,7 @@ static void	print_time(t_file *file)
 	time_t	diff;
 
 	stat_time = lstat_or_stat(file)->st_mtimespec.tv_sec;
-	str = ft_strdup(ctime(&stat_time));
+	str = ctime(&stat_time);
 	write(1, str + 4, 7);
 	diff = time(NULL) - stat_time;
 	if (stat_time >= 253402297140)
@@ -39,7 +41,6 @@ static void	print_time(t_file *file)
 		write(1, str + 19, 5);
 	else
 		write(1, str + 11, 5);
-	free(str);
 }
 
 static void	print_size(t_file *file, t_strlens *strlens)

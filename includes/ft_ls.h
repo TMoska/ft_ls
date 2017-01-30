@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 17:31:34 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/25 20:48:43 by moska            ###   ########.fr       */
+/*   Updated: 2017/01/30 17:30:34 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,7 @@ int					do_print_folder(char *folder_name, t_listing *listing);
 int					handle_bonus(char c, t_listing *listing);
 void				reverse_lists_if_needed(t_list **arggs, \
 	t_list **file_list, t_list **dir_list, t_listing *listing);
+void  del_file(t_file *file);
+void  deep_del_files(t_list **lst);
+void    del_files_n_fullnames(void **list_content, size_t *content_size);
 #endif
