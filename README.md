@@ -1,4 +1,4 @@
-ft_ls - TMoska [![Buld Status](https://travis-ci.org/TMoska/ft_ls.svg)](https://travis-ci.org/TMoska/ft_ls.svg?branch=master)
+ft_ls - TMoska
 ===
 
 Recreation of `ls` command with a few options:
