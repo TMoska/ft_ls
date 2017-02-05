@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/29 08:55:20 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/05 19:22:37 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ static	void	recurse(t_list **arguments, t_listing *listing)
 
 static t_bool	link_to_self(t_file *file)
 {
-	char		link[BUFF];
+	char		*link;
 	size_t		lu;
 
+	link = ft_memalloc(BUFF);
 	if (file->is_symlink)
 	{
 		lu = readlink(file->full_name, link, BUFF);
@@ -45,6 +46,7 @@ static t_bool	link_to_self(t_file *file)
 			return (1);
 		}
 	}
+	free(link);
 	return (0);
 }
 
