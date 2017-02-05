@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 12:52:24 by moska             #+#    #+#             */
-/*   Updated: 2017/01/30 17:36:32 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/05 19:20:14 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,15 @@ void    del_files_n_fullnames(void **list_content, size_t *content_size)
     ft_memdel((void**)&(file->owner));
   if (file->group)
     ft_memdel((void**)&(file->group));
-  if (file->stat)
+  if (file->stat && file->stat == file->lstat)
     ft_memdel((void**)&(file->stat));
-  if (file->lstat)
-    ft_memdel((void**)&(file->lstat));
+  else
+  {
+    if (file->stat)
+      ft_memdel((void**)&(file->stat));
+    if (file->lstat)
+      ft_memdel((void**)&(file->lstat));
+  }
   if (file->file_size_first)
     ft_memdel((void**)&(file->file_size_first));
   if (file->file_size_second)
