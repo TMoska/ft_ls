@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 20:18:13 by moska             #+#    #+#             */
-/*   Updated: 2017/01/21 06:02:10 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/02/06 06:28:56 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	sort_by_time(void *one, void *two)
 
 	one_stat = lstat_or_stat((t_file*)one);
 	two_stat = lstat_or_stat((t_file*)two);
-	diff = two_stat->st_mtimespec.tv_sec - one_stat->st_mtimespec.tv_sec;
+	diff = multios_time(two_stat) - multios_time(one_stat);
 	if (!diff)
 		return (sort_by_basename(one, two));
 	else

@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 17:31:34 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/06 05:15:43 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/06 06:32:20 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 
 # define BUFF 256
 # define SIX_MONTHS_SECONDS 16000000
+
+#ifdef __APPLE__
+# define multios_time(x) (x->st_mtimespec.tv_sec)
+#else
+# define multios_time(x) (x->st_mtime)
+#endif
 
 typedef char		t_bool;
 typedef struct stat	t_stat;
