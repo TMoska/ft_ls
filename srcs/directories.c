@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 19:05:45 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/27 00:34:26 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/06 03:35:09 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			is_a_dot_file(char *folder_name)
 
 int			do_print_folder(char *folder_name, t_listing *listing)
 {
-	if (listing->recursing && !listing->all)
+	if (listing->recursing && !listing->all && !listing->A)
 		return (!is_a_dot_file(folder_name));
 	return (1);
 }

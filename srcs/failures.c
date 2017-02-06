@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 19:56:04 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/22 12:27:09 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/06 03:36:46 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	illegal_option(char c)
 {
 	ft_putstr_fd("ls: illegal option -- ", 2);
 	ft_putchar_fd(c, 2);
-	ft_putstr_fd("\nusage: ls [-Radglort1] [file ...]\n", 2);
+	ft_putstr_fd("\nusage: ls [-ARadglort1] [file ...]\n", 2);
 	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 20:16:22 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/02 21:22:02 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/06 03:35:41 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,16 @@ void		print_folder(char *folder_name, t_listing *listing)
 
 t_bool		should_print_entry(t_file *file, t_listing *listing)
 {
-	return (*file->basename != '.' || listing->all \
-		|| listing->handling_singles);
+	if (*file->basename != '.' || listing->all || listing->handling_singles)
+		return (1);
+	if (listing->A)
+	{
+		if (ft_strequ(file->basename, ".") || ft_strequ(file->basename, ".."))
+			return (0);
+		else
+			return (1);
+	}
+	return (0);
 }
 
 static void	print_total_block_size(t_list *dir_files, t_listing *listing)
@@ -38,7 +46,7 @@ static void	print_total_block_size(t_list *dir_files, t_listing *listing)
 	while (dir_files)
 	{
 		file = (t_file*)dir_files->content;
-		if (!is_a_dot_file(file->full_name) || listing->all)
+		if (!is_a_dot_file(file->full_name) || listing->all || listing->A)
 			total += lstat_or_stat(file)->st_blocks;
 		dir_files = dir_files->next;
 	}

@@ -44,6 +44,7 @@ typedef struct		s_listing
 	t_bool			printed_something_already;
 	t_bool			handle_singles;
 	t_bool			handling_singles;
+	t_bool			A;
 	t_bool			o;
 	t_bool			g;
 	t_bool			d;
