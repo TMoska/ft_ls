@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 12:52:24 by moska             #+#    #+#             */
-/*   Updated: 2017/02/06 05:07:36 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/06 17:12:23 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ void  del_deep_char(char **arr)
     arr++;
     free(str);
   }
-  free(arr_tmp);
+  if (arr_tmp)
+    free(arr_tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/06 05:35:51 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/06 20:03:12 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,7 @@ int	link_will_loop(char ***split_link, char ***split_path, char link[BUFF], int 
 {
 	if (ft_strequ((*split_path)[i - 1], **split_link) ||
 		ft_strequ(link, "./") || ft_strequ(link, "."))
-	{
-		del_deep_char(*split_path);
-		del_deep_char(*split_link);
 		return (1);
-	}
-	del_deep_char(*split_path);
-	del_deep_char(*split_link);
 	return (0);
 }
 
@@ -71,7 +65,10 @@ static t_bool	link_to_self(t_file *file)
 		link[lu] = '\0';
 		split_link = ft_strsplit(link, '/');
 		traceback_link_path(&split_link, &split_path, &i, file);
-		return (link_will_loop(&split_link, &split_path, link, i));
+		i = link_will_loop(&split_link, &split_path, link, i);
+		del_deep_char(split_path);
+		del_deep_char(split_link);
+		return (i);
 	}
 	return (0);
 }
