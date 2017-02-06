@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 17:31:34 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/02 21:19:04 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/06 05:15:43 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <sys/acl.h>
 
 # define BUFF 256
-# define SIX_MONTHS_SECONDS 15552000
+# define SIX_MONTHS_SECONDS 16000000
 
 typedef char		t_bool;
 typedef struct stat	t_stat;
@@ -115,4 +115,5 @@ void  del_file(t_file *file);
 void  deep_del_files(t_list **lst);
 void    del_files_n_fullnames(void **list_content, size_t *content_size);
 int			is_a_dot_file(char *folder_name);
+void  del_deep_char(char **arr);
 #endif

@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 01:50:30 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/29 08:44:51 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/06 05:21:23 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,23 @@ static void	print_time(t_file *file)
 	char	*str;
 	time_t	stat_time;
 	time_t	diff;
+	char	**str_arr;
 
 	stat_time = lstat_or_stat(file)->st_mtimespec.tv_sec;
 	str = ctime(&stat_time);
-	write(1, str + 4, 7);
+	str_arr = ft_strsplit(str, ' ');
+	str_arr[4][ft_strlen(str_arr[4]) - 1] = '\0';
+	str_arr[3][5] = '\0';
+	ft_put_justified_str(str_arr[1], 3, ' ', 0);
+	ft_put_justified_str(str_arr[2], 3, ' ', 1);
 	diff = time(NULL) - stat_time;
-	if (stat_time >= 253402297140)
-		write(1, str + 23, 6);
+	if (ft_atoi(str_arr[4]) >= 10000)
+		ft_put_justified_str(str_arr[4], 7, ' ', 1);
 	else if (diff > SIX_MONTHS_SECONDS || diff < 0)
-		write(1, str + 19, 5);
+		ft_put_justified_str(str_arr[4], 6, ' ', 1);
 	else
-		write(1, str + 11, 5);
+		ft_put_justified_str(str_arr[3], 6, ' ', 1);
+	del_deep_char(str_arr);
 }
 
 static void	print_size(t_file *file, t_strlens *strlens)

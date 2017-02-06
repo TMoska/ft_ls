@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 12:52:24 by moska             #+#    #+#             */
-/*   Updated: 2017/02/05 19:20:14 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/06 05:07:36 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,19 @@ void  deep_del_files(t_list **lst)
     ft_memdel((void**)lst);
     *lst = next;
   } 
+}
+
+void  del_deep_char(char **arr)
+{
+  char *str;
+  char **arr_tmp;
+
+  arr_tmp = arr;
+  while (*arr)
+  {
+    str = *arr;
+    arr++;
+    free(str);
+  }
+  free(arr_tmp);
 }
