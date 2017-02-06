@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 16:33:19 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/04 23:00:33 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/06 02:47:47 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,5 @@ int					ft_lst_in_list(t_list *begin_list, void *data,\
 		int (*cmp)());
 int   ft_lstadd_back(t_list **alst, t_list *new);
 void    ft_lst_clear(void **list_content, size_t *content_size);
+int ft_char_arr_len(char **arr);
 #endif

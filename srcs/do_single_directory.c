@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/05 19:22:37 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/06 02:56:43 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,43 @@ static	void	recurse(t_list **arguments, t_listing *listing)
 	listing->recursing = recursive_loop;
 }
 
+static void		traceback_link_path(char ***split_link, char ***split_path,
+	int *i, t_file *file)
+{
+	*split_path = ft_strsplit(file->full_name, '/');
+	*i = ft_char_arr_len(*split_path);
+	while (**split_link && ft_strequ(**split_link, ".."))
+	{
+		(*i)--;
+		(*split_link)++;
+	}
+}
+
 static t_bool	link_to_self(t_file *file)
 {
-	char		*link;
+	char		link[BUFF];
 	size_t		lu;
+	char 		**split_link;
+	char 		**split_path;
+	int			i;
 
-	link = ft_memalloc(BUFF);
+	split_link = NULL;
+	split_path = NULL;
 	if (file->is_symlink)
 	{
 		lu = readlink(file->full_name, link, BUFF);
 		if (lu >= BUFF)
 		{
-			free(link);
 			ft_putendl("Link filename too long");
 			exit(1);
 		}
 		link[lu] = '\0';
-		if (ft_strequ(link, "./") || ft_strequ(link, "."))
-		{
-			free(link);
+		split_link = ft_strsplit(link, '/');
+		traceback_link_path(&split_link, &split_path, &i, file);
+		if (ft_strequ(split_path[i - 1], *split_link) ||
+			ft_strequ(link, "./") || ft_strequ(link, "."))
 			return (1);
-		}
 	}
-	free(link);
 	return (0);
 }
 
@@ -63,7 +77,8 @@ static void		do_recursiveness(t_list *dir_files, t_listing *listing)
 				&& !ft_strequ(file->basename, ".")
 				&& !ft_strequ(file->basename, "..")
 				&& !link_to_self(file))
-			ft_lstadd(&folders, ft_lstnew(file->full_name, ft_strlen(file->full_name) + 1));
+			ft_lstadd(&folders, ft_lstnew(file->full_name,
+				ft_strlen(file->full_name) + 1));
 		dir_files = dir_files->next;
 	}
 	if (folders)
