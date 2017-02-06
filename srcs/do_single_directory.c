@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/06 02:56:43 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/06 05:20:33 by moska            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,21 @@ static void		traceback_link_path(char ***split_link, char ***split_path,
 	}
 }
 
+int	link_will_loop(char **split_link, char **split_path, char link[BUFF], int i)
+{
+	if (ft_strequ(split_path[i - 1], *split_link) ||
+		ft_strequ(link, "./") || ft_strequ(link, "."))
+	{
+
+		del_deep_char(split_path);
+		del_deep_char(split_link);
+		return (1);
+	}
+	del_deep_char(split_path);
+	del_deep_char(split_link);
+	return (0);
+}
+
 static t_bool	link_to_self(t_file *file)
 {
 	char		link[BUFF];
@@ -57,9 +72,7 @@ static t_bool	link_to_self(t_file *file)
 		link[lu] = '\0';
 		split_link = ft_strsplit(link, '/');
 		traceback_link_path(&split_link, &split_path, &i, file);
-		if (ft_strequ(split_path[i - 1], *split_link) ||
-			ft_strequ(link, "./") || ft_strequ(link, "."))
-			return (1);
+		return (link_will_loop(split_path, split_link, link, i));
 	}
 	return (0);
 }
