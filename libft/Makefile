@@ -6,7 +6,7 @@
 #    By: moska <moska@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/22 15:11:22 by tmoska            #+#    #+#              #
-#    Updated: 2017/02/06 02:55:48 by moska            ###   ########.fr        #
+#    Updated: 2017/02/07 22:05:27 by moska            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ $(NAME): $(OBJECTS)
 
 clean:
 	@rm -f $(OBJECTS)
-	@find . \( -name "*~" -o -name "*.swp" -o -name ".DS_Store" \) -delete
+	@find . \( -name ".DS_Store" \) -delete
 
 fclean: clean
 	@rm -f $(NAME)

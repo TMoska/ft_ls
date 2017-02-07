@@ -6,7 +6,7 @@
 #    By: moska <moska@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/09 17:36:12 by tmoska            #+#    #+#              #
-#    Updated: 2017/01/30 17:37:14 by moska            ###   ########.fr        #
+#    Updated: 2017/02/07 22:04:49 by moska            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ LIB			= $(LIB_PATH)/libft.a
 LIB_LINK	= -L $(LIB_PATH) -lft
 
 INC_DIR 	= includes
+ING_FILES = ft_ls.h
 INC_FLAGS 	= -I./includes -I $(LIB_PATH)/includes
 
 SRC_DIR 	= srcs
@@ -42,16 +43,16 @@ $(NAME): $(LIB) $(OBJECTS)
 $(LIB):
 	@make -C $(LIB_PATH)
 
-%.o: %.c $(INC_DIR)/*.h
+%.o: %.c $(INC_DIR)/$(INC_FILES)
 	@$(CC) $(FLAGS) $(INC_FLAGS) -c -o $@ $<
 
 clean:
 	@rm -f $(OBJECTS)
-	@find . \( -name "*~" -o -name "*.swp" -o -name ".DS_Store" \) -delete
 	@make clean -C $(LIB_PATH)
 
 fclean: clean
 	@rm -f $(NAME)
+	@find . \( -name ".DS_Store" \) -delete
 	@make fclean -C $(LIB_PATH)
 	
 re: fclean all
