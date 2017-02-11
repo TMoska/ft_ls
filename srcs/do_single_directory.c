@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/11 19:41:10 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/02/11 20:59:58 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static void		traceback_link_path(char ***split_link, char ***split_path,
 static t_bool	link_to_self(t_file *file)
 {
 	char		link[BUFF];
-	size_t		lu;
 	char		**split_link;
+	char		**split_link_original;
 	char		**split_path;
 	int			i;
 
@@ -48,18 +48,17 @@ static t_bool	link_to_self(t_file *file)
 	split_path = NULL;
 	if (file->is_symlink)
 	{
-		lu = readlink(file->full_name, link, BUFF);
-		if (lu >= BUFF)
-		{
-			ft_putendl("Link filename too long");
-			exit(1);
-		}
-		link[lu] = '\0';
+		i = readlink(file->full_name, link, BUFF);
+		if (i >= BUFF)
+			name_too_long();
+		link[i] = '\0';
+		i = 0;
 		split_link = ft_strsplit(link, '/');
+		split_link_original = split_link;
 		traceback_link_path(&split_link, &split_path, &i, file);
 		i = link_will_loop(&split_link, &split_path, link, i);
 		del_deep_char(split_path);
-		del_deep_char(split_link);
+		del_deep_char(split_link_original);
 		return (i);
 	}
 	return (0);

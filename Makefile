@@ -6,21 +6,20 @@
 #    By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/09 17:36:12 by tmoska            #+#    #+#              #
-#    Updated: 2017/02/11 19:49:07 by tmoska           ###   ########.fr        #
+#    Updated: 2017/02/11 21:59:59 by tmoska           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 GCC 		= gcc
-# GCC 		= clang -fsanitize=memory
 NAME 		= ft_ls
-FLAGS 		= -Wall -Werror -Wextra -g
+FLAGS 		= -Wall -Werror -Wextra
 
 LIB_PATH	= libft
 LIB			= $(LIB_PATH)/libft.a
 LIB_LINK	= -L $(LIB_PATH) -lft
 
 INC_DIR 	= includes
-ING_FILES = ft_ls.h
+ING_FILES 	= ft_ls.h
 INC_FLAGS 	= -I./includes -I $(LIB_PATH)/includes
 
 SRC_DIR 	= srcs
@@ -37,7 +36,7 @@ OBJECTS		= $(SOURCES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(LIB) $(OBJECTS)
-	@$(CC) $(FLAGS) -o $@ $^ $(LIB_LINK)
+	@$(GCC) $(FLAGS) -o $@ $^ $(LIB_LINK)
 	@echo "\033[0;32mSuccess: \033[0mft_ls compiled"
 	@echo "\033[0;32mDone"
 
@@ -45,7 +44,7 @@ $(LIB):
 	@make -C $(LIB_PATH)
 
 %.o: %.c $(INC_DIR)/$(INC_FILES)
-	@$(CC) $(FLAGS) $(INC_FLAGS) -c -o $@ $<
+	@$(GCC) $(FLAGS) $(INC_FLAGS) -c -o $@ $<
 
 clean:
 	@rm -f $(OBJECTS)

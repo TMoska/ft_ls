@@ -6,7 +6,7 @@
 /*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 17:31:34 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/11 19:59:56 by tmoska           ###   ########.fr       */
+/*   Updated: 2017/02/11 20:57:26 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,5 @@ void				del_deep_char(char **arr);
 int					link_will_loop(char ***split_link, char ***split_path,\
 		char link[BUFF], int i);
 void				clean_listing(t_list *dir_list, t_list *file_list);
+void				name_too_long(void);
 #endif

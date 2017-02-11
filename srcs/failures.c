@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   failures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/13 19:56:04 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/06 03:36:46 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/11 20:57:28 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,11 @@ void	illegal_option(char c)
 	ft_putstr_fd("ls: illegal option -- ", 2);
 	ft_putchar_fd(c, 2);
 	ft_putstr_fd("\nusage: ls [-ARadglort1] [file ...]\n", 2);
+	exit(1);
+}
+
+void	name_too_long(void)
+{
+	ft_putendl("Link filename too long");
 	exit(1);
 }
