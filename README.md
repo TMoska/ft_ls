@@ -12,6 +12,7 @@ Mandatory:
 -t		Sort by time modified (most recently modified first) before sorting the operands by lexicographical order.
 
 Bonus:
+-A 		List all entries except for . and ...  Always set for the super-user.
 -d		Directories are listed as plain files (not searched recursively).
 -g		This option is only available for compatibility with POSIX; it is used to display the group name in the long (-l) format output (the owner name is suppressed).
 -o		List in long format, but omit the group id.
