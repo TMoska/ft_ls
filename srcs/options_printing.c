@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options_printing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 01:50:30 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/06 06:33:04 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/11 20:00:06 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	print_time(t_file *file)
 	time_t	diff;
 	char	**str_arr;
 
-	stat_time = multios_time(lstat_or_stat(file));
+	stat_time = MULTIOS_TIME(lstat_or_stat(file));
 	str = ctime(&stat_time);
 	str_arr = ft_strsplit(str, ' ');
 	str_arr[4][ft_strlen(str_arr[4]) - 1] = '\0';

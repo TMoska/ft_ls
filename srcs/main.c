@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 22:09:21 by tmoska            #+#    #+#             */
-/*   Updated: 2017/01/30 17:35:59 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/11 19:36:03 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ int				main(int ac, char **av)
 	{
 		s = av[i] + 1;
 		while (*s)
-		{
-			handle_options(*s, &listing);
-			s++;
-		}
+			handle_options(*s++, &listing);
 		i++;
 	}
 	if (i < ac && ft_strequ(av[i], "--"))

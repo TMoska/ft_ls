@@ -6,7 +6,7 @@
 /*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 20:16:22 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/06 03:35:41 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/11 19:52:34 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_bool		should_print_entry(t_file *file, t_listing *listing)
 {
 	if (*file->basename != '.' || listing->all || listing->handling_singles)
 		return (1);
-	if (listing->A)
+	if (listing->cap_a)
 	{
 		if (ft_strequ(file->basename, ".") || ft_strequ(file->basename, ".."))
 			return (0);
@@ -40,13 +40,13 @@ static void	print_total_block_size(t_list *dir_files, t_listing *listing)
 {
 	unsigned long long	total;
 	char				*str;
-	t_file			*file;
+	t_file				*file;
 
 	total = 0;
 	while (dir_files)
 	{
 		file = (t_file*)dir_files->content;
-		if (!is_a_dot_file(file->full_name) || listing->all || listing->A)
+		if (!is_a_dot_file(file->full_name) || listing->all || listing->cap_a)
 			total += lstat_or_stat(file)->st_blocks;
 		dir_files = dir_files->next;
 	}

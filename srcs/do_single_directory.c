@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_single_directory.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/14 22:30:46 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/06 20:03:12 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/11 19:41:10 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,12 @@ static void		traceback_link_path(char ***split_link, char ***split_path,
 	}
 }
 
-int	link_will_loop(char ***split_link, char ***split_path, char link[BUFF], int i)
-{
-	if (ft_strequ((*split_path)[i - 1], **split_link) ||
-		ft_strequ(link, "./") || ft_strequ(link, "."))
-		return (1);
-	return (0);
-}
-
 static t_bool	link_to_self(t_file *file)
 {
 	char		link[BUFF];
 	size_t		lu;
-	char 		**split_link;
-	char 		**split_path;
+	char		**split_link;
+	char		**split_path;
 	int			i;
 
 	split_link = NULL;
@@ -120,6 +112,6 @@ void			do_single_directory(char *folder_name, t_list *directory\
 			print_files(dir_files, listing);
 		if (listing->recursive)
 			do_recursiveness(dir_files, listing);
-		ft_lstdel(&dir_files, &del_files_n_fullnames); // <<<<<<<<<<<
+		ft_lstdel(&dir_files, &del_files_n_fullnames);
 	}
 }

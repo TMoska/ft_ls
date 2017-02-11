@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moska <moska@student.42.fr>                +#+  +:+       +#+         #
+#    By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/09 17:36:12 by tmoska            #+#    #+#              #
-#    Updated: 2017/02/07 22:04:49 by moska            ###   ########.fr        #
+#    Updated: 2017/02/11 19:49:07 by tmoska           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC_DIR 	= srcs
 SRC_FILES 	= main.c listing.c failures.c directories.c printing.c \
 	  		  do_single_directory.c dir_files.c sorting.c formatting.c \
 	  		  print_file_permissions.c print_files_and_directories.c \
-	  		  replacements.c options_printing.c bonus_options.c utils.c
+	  		  replacements.c options_printing.c bonus_options.c utils.c \
+	  		  cleaning.c
 
 SOURCES		= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

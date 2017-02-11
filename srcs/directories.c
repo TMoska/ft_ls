@@ -28,7 +28,7 @@ int			is_a_dot_file(char *folder_name)
 
 int			do_print_folder(char *folder_name, t_listing *listing)
 {
-	if (listing->recursing && !listing->all && !listing->A)
+	if (listing->recursing && !listing->all && !listing->cap_a)
 		return (!is_a_dot_file(folder_name));
 	return (1);
 }

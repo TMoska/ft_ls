@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 17:31:34 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/06 06:32:20 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/11 19:59:56 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@
 # define BUFF 256
 # define SIX_MONTHS_SECONDS 16000000
 
-#ifdef __APPLE__
-# define multios_time(x) (x->st_mtimespec.tv_sec)
-#else
-# define multios_time(x) (x->st_mtime)
-#endif
+# ifdef __APPLE__
+#  define MULTIOS_TIME(x) (x->st_mtimespec.tv_sec)
+# else
+#  define MULTIOS_TIME(x) (x->st_mtime)
+# endif
 
 typedef char		t_bool;
 typedef struct stat	t_stat;
@@ -50,7 +50,7 @@ typedef struct		s_listing
 	t_bool			printed_something_already;
 	t_bool			handle_singles;
 	t_bool			handling_singles;
-	t_bool			A;
+	t_bool			cap_a;
 	t_bool			o;
 	t_bool			g;
 	t_bool			d;
@@ -117,9 +117,13 @@ int					do_print_folder(char *folder_name, t_listing *listing);
 int					handle_bonus(char c, t_listing *listing);
 void				reverse_lists_if_needed(t_list **arggs, \
 	t_list **file_list, t_list **dir_list, t_listing *listing);
-void  del_file(t_file *file);
-void  deep_del_files(t_list **lst);
-void    del_files_n_fullnames(void **list_content, size_t *content_size);
-int			is_a_dot_file(char *folder_name);
-void  del_deep_char(char **arr);
+void				del_file(t_file *file);
+void				deep_del_files(t_list **lst);
+void				del_files_n_fullnames(void **list_content, \
+		size_t *content_size);
+int					is_a_dot_file(char *folder_name);
+void				del_deep_char(char **arr);
+int					link_will_loop(char ***split_link, char ***split_path,\
+		char link[BUFF], int i);
+void				clean_listing(t_list *dir_list, t_list *file_list);
 #endif

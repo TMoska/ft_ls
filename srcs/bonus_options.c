@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bonus_options.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moska <moska@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tmoska <tmoska@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/21 05:27:05 by tmoska            #+#    #+#             */
-/*   Updated: 2017/02/06 03:32:50 by moska            ###   ########.fr       */
+/*   Updated: 2017/02/11 19:59:14 by tmoska           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int				handle_bonus(char c, t_listing *listing)
 		listing->long_format = 1;
 	}
 	else if (c == 'A')
-		listing->A = 1;
+		listing->cap_a = 1;
 	if (c == 'd' || c == '1' || c == 'o' || c == 'g' || c == 'A')
 		return (1);
 	return (0);
