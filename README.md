@@ -41,7 +41,7 @@ You might be interested in checking my other repositories:
 - [libft](https://www.github.com/TMoska/libft)
 - [fillit](https://www.github.com/TMoska/fillit)
 - [get_next_line](https://github.com/TMoska/get_next_line)
-- [minishell](https://github.com/TMoska/minishell)
+- [minishell/21sh/42sh](https://github.com/TMoska/minishell)
 
 
 Contributing
@@ -73,4 +73,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
